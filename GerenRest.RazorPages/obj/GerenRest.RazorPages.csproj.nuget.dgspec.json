@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "d:\\GitHub\\atividade_1_tds\\GerenRest.RazorPages\\GerenRest.RazorPages.csproj": {}
+    "E:\\Arquivos\\UTFPR\\Disciplinas\\Atuais\\TDS\\UTFPR_GamificacaoV2\\UTFPR_GamificacaoV2\\GerenRest.RazorPages\\GerenRest.RazorPages.csproj": {}
   },
   "projects": {
-    "d:\\GitHub\\atividade_1_tds\\GerenRest.RazorPages\\GerenRest.RazorPages.csproj": {
+    "E:\\Arquivos\\UTFPR\\Disciplinas\\Atuais\\TDS\\UTFPR_GamificacaoV2\\UTFPR_GamificacaoV2\\GerenRest.RazorPages\\GerenRest.RazorPages.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\GitHub\\atividade_1_tds\\GerenRest.RazorPages\\GerenRest.RazorPages.csproj",
+        "projectUniqueName": "E:\\Arquivos\\UTFPR\\Disciplinas\\Atuais\\TDS\\UTFPR_GamificacaoV2\\UTFPR_GamificacaoV2\\GerenRest.RazorPages\\GerenRest.RazorPages.csproj",
         "projectName": "GerenRest.RazorPages",
-        "projectPath": "d:\\GitHub\\atividade_1_tds\\GerenRest.RazorPages\\GerenRest.RazorPages.csproj",
-        "packagesPath": "C:\\Users\\danib\\.nuget\\packages\\",
-        "outputPath": "d:\\GitHub\\atividade_1_tds\\GerenRest.RazorPages\\obj\\",
+        "projectPath": "E:\\Arquivos\\UTFPR\\Disciplinas\\Atuais\\TDS\\UTFPR_GamificacaoV2\\UTFPR_GamificacaoV2\\GerenRest.RazorPages\\GerenRest.RazorPages.csproj",
+        "packagesPath": "C:\\Users\\nocma\\.nuget\\packages\\",
+        "outputPath": "E:\\Arquivos\\UTFPR\\Disciplinas\\Atuais\\TDS\\UTFPR_GamificacaoV2\\UTFPR_GamificacaoV2\\GerenRest.RazorPages\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\danib\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\nocma\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,6 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {

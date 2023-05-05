@@ -8,10 +8,10 @@ namespace GerenRest.RazorPages.Pages.Atendimento
 {
     public class Create : PageModel
     {
-        public class QuantProduto {
-            public ProdutoModel? Produto { get; set; }
-            public int Quantidade { get; set; }
-        }
+        //public class QuantProduto {
+        //    public ProdutoModel? Produto { get; set; }
+        //    public int Quantidade { get; set; }
+        //}
 
         private readonly AppDbContext _context;
         [BindProperty]
@@ -43,16 +43,16 @@ namespace GerenRest.RazorPages.Pages.Atendimento
                 return RedirectToPage("/Atendimento/Create");
             }
 
-            List<QuantProduto> quantProdList = new();
-            AtenModel.PrecoTotal = 0;
+            //List<QuantProduto> quantProdList = new();
+            //AtenModel.PrecoTotal = 0;
 
-            foreach(int prodID in prodConsumidos) {
-                 = await _context.Produtos!.FindAsync(prodID);
+            //foreach(int prodID in prodConsumidos) {
+            //     await _context.Produtos!.FindAsync(prodID);
                 
-                AtenModel.PrecoTotal += prodModel!.Preco;
-            }
+            //    AtenModel.PrecoTotal += prodModel!.Preco;
+            //}
 
-            AtenModel.ListaProdutos = listProds;
+            //AtenModel.ListaProdutos = listProds;
             AtenModel.GarconResponsavel = await _context.Garcons!.FindAsync(GarconId);
             AtenModel.HorarioAtendimento = DateTime.Now;
 
