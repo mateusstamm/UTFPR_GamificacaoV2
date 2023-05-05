@@ -1,0 +1,12 @@
+@page "{id:int}"
+@model GerenRest.RazorPages.Pages.Mesa.Details
+
+<h1>Detalhes da mesa</h1>
+
+<div>
+    <p><strong>Numero da mesa:</strong>@Model.MesaModel.Numero</p>
+    <p><strong>Status da mesa:</strong>@Model.MesaModel.Ocupada</p>
+    <p><strong>Hora da Abertura:</strong>@Model.MesaModel.HoraAbertura</p>
+</div>
+
+<a class="btn btn-primary" asp-page="/Mesa/Index">Voltar para a lista</a>
