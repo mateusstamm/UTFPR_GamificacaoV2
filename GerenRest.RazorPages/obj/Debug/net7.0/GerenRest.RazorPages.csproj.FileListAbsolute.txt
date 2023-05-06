@@ -141,3 +141,14 @@ E:\Arquivos\UTFPR\Disciplinas\Atuais\TDS\UTFPR_GamificacaoV2\UTFPR_GamificacaoV2
 E:\Arquivos\UTFPR\Disciplinas\Atuais\TDS\UTFPR_GamificacaoV2\UTFPR_GamificacaoV2\GerenRest.RazorPages\obj\Debug\net7.0\GerenRest.RazorPages.dll
 E:\Arquivos\UTFPR\Disciplinas\Atuais\TDS\UTFPR_GamificacaoV2\UTFPR_GamificacaoV2\GerenRest.RazorPages\obj\Debug\net7.0\refint\GerenRest.RazorPages.dll
 E:\Arquivos\UTFPR\Disciplinas\Atuais\TDS\UTFPR_GamificacaoV2\UTFPR_GamificacaoV2\GerenRest.RazorPages\obj\Debug\net7.0\GerenRest.RazorPages.pdb
+D:\GitHub\UTFPR_GamificacaoV2\GerenRest.RazorPages\obj\Debug\net7.0\GerenRest.RazorPages.csproj.AssemblyReference.cache
+D:\GitHub\UTFPR_GamificacaoV2\GerenRest.RazorPages\obj\Debug\net7.0\GerenRest.RazorPages.GeneratedMSBuildEditorConfig.editorconfig
+D:\GitHub\UTFPR_GamificacaoV2\GerenRest.RazorPages\obj\Debug\net7.0\GerenRest.RazorPages.AssemblyInfoInputs.cache
+D:\GitHub\UTFPR_GamificacaoV2\GerenRest.RazorPages\obj\Debug\net7.0\GerenRest.RazorPages.AssemblyInfo.cs
+D:\GitHub\UTFPR_GamificacaoV2\GerenRest.RazorPages\obj\Debug\net7.0\GerenRest.RazorPages.csproj.CoreCompileInputs.cache
+D:\GitHub\UTFPR_GamificacaoV2\GerenRest.RazorPages\obj\Debug\net7.0\GerenRest.RazorPages.MvcApplicationPartsAssemblyInfo.cache
+D:\GitHub\UTFPR_GamificacaoV2\GerenRest.RazorPages\obj\Debug\net7.0\GerenRest.RazorPages.RazorAssemblyInfo.cache
+D:\GitHub\UTFPR_GamificacaoV2\GerenRest.RazorPages\obj\Debug\net7.0\GerenRest.RazorPages.RazorAssemblyInfo.cs
+D:\GitHub\UTFPR_GamificacaoV2\GerenRest.RazorPages\obj\Debug\net7.0\GerenRest.RazorPages.dll
+D:\GitHub\UTFPR_GamificacaoV2\GerenRest.RazorPages\obj\Debug\net7.0\refint\GerenRest.RazorPages.dll
+D:\GitHub\UTFPR_GamificacaoV2\GerenRest.RazorPages\obj\Debug\net7.0\GerenRest.RazorPages.pdb

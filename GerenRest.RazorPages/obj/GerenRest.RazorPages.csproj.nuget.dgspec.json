@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "d:\\GitHub\\UTFPR_GamificacaoV2\\GerenRest.RazorPages\\GerenRest.RazorPages.csproj": {}
+    "D:\\GitHub\\UTFPR_GamificacaoV2\\GerenRest.RazorPages\\GerenRest.RazorPages.csproj": {}
   },
   "projects": {
-    "d:\\GitHub\\UTFPR_GamificacaoV2\\GerenRest.RazorPages\\GerenRest.RazorPages.csproj": {
+    "D:\\GitHub\\UTFPR_GamificacaoV2\\GerenRest.RazorPages\\GerenRest.RazorPages.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\GitHub\\UTFPR_GamificacaoV2\\GerenRest.RazorPages\\GerenRest.RazorPages.csproj",
+        "projectUniqueName": "D:\\GitHub\\UTFPR_GamificacaoV2\\GerenRest.RazorPages\\GerenRest.RazorPages.csproj",
         "projectName": "GerenRest.RazorPages",
-        "projectPath": "d:\\GitHub\\UTFPR_GamificacaoV2\\GerenRest.RazorPages\\GerenRest.RazorPages.csproj",
+        "projectPath": "D:\\GitHub\\UTFPR_GamificacaoV2\\GerenRest.RazorPages\\GerenRest.RazorPages.csproj",
         "packagesPath": "C:\\Users\\danib\\.nuget\\packages\\",
-        "outputPath": "d:\\GitHub\\UTFPR_GamificacaoV2\\GerenRest.RazorPages\\obj\\",
+        "outputPath": "D:\\GitHub\\UTFPR_GamificacaoV2\\GerenRest.RazorPages\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -53,6 +53,10 @@
             "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
               "version": "[7.0.4, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
             }
           },
           "imports": [

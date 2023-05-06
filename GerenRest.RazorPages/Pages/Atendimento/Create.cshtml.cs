@@ -1,8 +1,8 @@
-using GerenRest.RazorPages.Data;
 using GerenRest.RazorPages.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace GerenRest.RazorPages.Pages.Atendimento
 {
@@ -13,7 +13,6 @@ namespace GerenRest.RazorPages.Pages.Atendimento
             public int Quantidade { get; set; }
         }
 
-        private readonly AppDbContext _context;
         [BindProperty]
         public AtendimentoModel AtenModel { get; set; } = new();
         public List<GarconModel>? GarconModel { get; set; }
@@ -26,13 +25,14 @@ namespace GerenRest.RazorPages.Pages.Atendimento
         [BindProperty]
         public int? ProdId { get; set; }
         public List<AtendimentoModel>? ListAtend { get; set; }
-        public Create(AppDbContext context)
+        public Create()
         {
-            _context = context;
+            
         }
     
         public async Task<IActionResult> OnPostAsync()
         {
+            
             if(!ModelState.IsValid)
                 return Page();
 
@@ -43,14 +43,33 @@ namespace GerenRest.RazorPages.Pages.Atendimento
                 return RedirectToPage("/Atendimento/Create");
             }
 
+            using (var httpClient = new HttpClient())
+            {
+                var url = $"http://localhost:5239/api/garcon/{GarconId}";
+                var response = await httpClient.GetAsync(url);
+                if(response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    AtenModel.GarconResponsavel = JsonConvert.DeserializeObject<GarconModel>(content);
+                }
+
+            }
             
-            AtenModel.GarconResponsavel = await _context.Garcons!.FindAsync(GarconId);
             AtenModel.HorarioAtendimento = DateTime.Now;
 
-            var mesaSelecionada = await _context.Mesas!.FindAsync(MesaId);
-            AtenModel.MesaAtendida = mesaSelecionada;
-            mesaSelecionada!.Ocupada = "Livre";
-            mesaSelecionada!.HoraAbertura = DateTime.Now;
+            using (var httpClient = new HttpClient())
+            {
+                var url = $"http://localhost:5239/api/mesa/{MesaId}";
+                var response = await httpClient.GetAsync(url);
+                if(response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    AtenModel.MesaAtendida = JsonConvert.DeserializeObject<MesaModel>(content);
+                    AtenModel.MesaAtendida!.Ocupada = "Livre";
+                    AtenModel.MesaAtendida!.HoraAbertura = DateTime.Now;
+                }
+
+            }
 
             try {
                 _context.Add(AtenModel);
@@ -65,17 +84,33 @@ namespace GerenRest.RazorPages.Pages.Atendimento
         }
 
         public async Task<IActionResult> OnGetAsync() {
+            using (var httpClient = new HttpClient())
+            {
+                var url = $"http://localhost:5239/api/garcon/";
+                var response = await httpClient.GetAsync(url);
+                if(response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                     = JsonConvert.DeserializeObject<List<MesaModel>>(content);
+                    
+                }
 
-            GarconModel = await _context.Garcons!.ToListAsync();
+            }
+            var httpClient = new HttpClient();
+            var requestMessage = new HttpRequestMessage(HttpMethod.Get, url);
+            var response = await httpClient.SendAsync(requestMessage);
+            var content = await response.Content.ReadAsStringAsync();
 
-            if (GarconModel.Count == 0) {
+            GarconModel = JsonConvert.DeserializeObject<List<GarconModel>>(content!);
+
+            if (GarconModel == null || GarconModel.Count == 0) {
                 TempData["ErroGarcon"] = "Não há garçons disponíveis!";
                 return RedirectToPage("/Atendimento/Index");
             }
 
-            MesaModel = await _context.Mesas!.ToListAsync();
+            MesaModel = JsonConvert.DeserializeObject<List<MesaModel>>(content!);
 
-            if (MesaModel.Count == 0) {
+            if (MesaModel == null || MesaModel.Count == 0) {
                 TempData["ErroMesaRegistro"] = "Não há mesas registradas!";
                 return RedirectToPage("/Atendimento/Index");
             }
@@ -92,9 +127,9 @@ namespace GerenRest.RazorPages.Pages.Atendimento
                 return RedirectToPage("/Atendimento/Index");
             }
 
-            ProdModel = await _context.Produtos!.ToListAsync();
+            ProdModel = JsonConvert.DeserializeObject<List<ProdutoModel>>(content!);
 
-            if (ProdModel.Count == 0) {
+            if (ProdModel == null || ProdModel.Count == 0) {
                 TempData["ErroProduto"] = "Não há produtos registrados!";
                 return RedirectToPage("/Atendimento/Index");
             }
