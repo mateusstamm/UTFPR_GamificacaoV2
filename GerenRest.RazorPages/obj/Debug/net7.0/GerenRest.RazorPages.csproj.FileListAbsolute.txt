@@ -130,3 +130,14 @@ D:\GitHub\atividade_1_tds\GerenRest.RazorPages\obj\Debug\net7.0\refint\GerenRest
 D:\GitHub\atividade_1_tds\GerenRest.RazorPages\obj\Debug\net7.0\GerenRest.RazorPages.pdb
 D:\GitHub\atividade_1_tds\GerenRest.RazorPages\obj\Debug\net7.0\GerenRest.RazorPages.genruntimeconfig.cache
 D:\GitHub\atividade_1_tds\GerenRest.RazorPages\obj\Debug\net7.0\ref\GerenRest.RazorPages.dll
+E:\Arquivos\UTFPR\Disciplinas\Atuais\TDS\UTFPR_GamificacaoV2\UTFPR_GamificacaoV2\GerenRest.RazorPages\obj\Debug\net7.0\GerenRest.RazorPages.csproj.AssemblyReference.cache
+E:\Arquivos\UTFPR\Disciplinas\Atuais\TDS\UTFPR_GamificacaoV2\UTFPR_GamificacaoV2\GerenRest.RazorPages\obj\Debug\net7.0\GerenRest.RazorPages.GeneratedMSBuildEditorConfig.editorconfig
+E:\Arquivos\UTFPR\Disciplinas\Atuais\TDS\UTFPR_GamificacaoV2\UTFPR_GamificacaoV2\GerenRest.RazorPages\obj\Debug\net7.0\GerenRest.RazorPages.AssemblyInfoInputs.cache
+E:\Arquivos\UTFPR\Disciplinas\Atuais\TDS\UTFPR_GamificacaoV2\UTFPR_GamificacaoV2\GerenRest.RazorPages\obj\Debug\net7.0\GerenRest.RazorPages.AssemblyInfo.cs
+E:\Arquivos\UTFPR\Disciplinas\Atuais\TDS\UTFPR_GamificacaoV2\UTFPR_GamificacaoV2\GerenRest.RazorPages\obj\Debug\net7.0\GerenRest.RazorPages.csproj.CoreCompileInputs.cache
+E:\Arquivos\UTFPR\Disciplinas\Atuais\TDS\UTFPR_GamificacaoV2\UTFPR_GamificacaoV2\GerenRest.RazorPages\obj\Debug\net7.0\GerenRest.RazorPages.MvcApplicationPartsAssemblyInfo.cache
+E:\Arquivos\UTFPR\Disciplinas\Atuais\TDS\UTFPR_GamificacaoV2\UTFPR_GamificacaoV2\GerenRest.RazorPages\obj\Debug\net7.0\GerenRest.RazorPages.RazorAssemblyInfo.cache
+E:\Arquivos\UTFPR\Disciplinas\Atuais\TDS\UTFPR_GamificacaoV2\UTFPR_GamificacaoV2\GerenRest.RazorPages\obj\Debug\net7.0\GerenRest.RazorPages.RazorAssemblyInfo.cs
+E:\Arquivos\UTFPR\Disciplinas\Atuais\TDS\UTFPR_GamificacaoV2\UTFPR_GamificacaoV2\GerenRest.RazorPages\obj\Debug\net7.0\GerenRest.RazorPages.dll
+E:\Arquivos\UTFPR\Disciplinas\Atuais\TDS\UTFPR_GamificacaoV2\UTFPR_GamificacaoV2\GerenRest.RazorPages\obj\Debug\net7.0\refint\GerenRest.RazorPages.dll
+E:\Arquivos\UTFPR\Disciplinas\Atuais\TDS\UTFPR_GamificacaoV2\UTFPR_GamificacaoV2\GerenRest.RazorPages\obj\Debug\net7.0\GerenRest.RazorPages.pdb
