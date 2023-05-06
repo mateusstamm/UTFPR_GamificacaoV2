@@ -43,16 +43,7 @@ namespace GerenRest.RazorPages.Pages.Atendimento
                 return RedirectToPage("/Atendimento/Create");
             }
 
-            List<QuantProduto> quantProdList = new();
-            AtenModel.PrecoTotal = 0;
-
-            foreach(int prodID in prodConsumidos) {
-                 = await _context.Produtos!.FindAsync(prodID);
-                
-                AtenModel.PrecoTotal += prodModel!.Preco;
-            }
-
-            AtenModel.ListaProdutos = listProds;
+            
             AtenModel.GarconResponsavel = await _context.Garcons!.FindAsync(GarconId);
             AtenModel.HorarioAtendimento = DateTime.Now;
 

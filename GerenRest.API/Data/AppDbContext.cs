@@ -1,11 +1,11 @@
-
-using GerenRest.RazorPages.Models;
+using GerenRest.API.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace GerenRest.RazorPages.Data {
+namespace GerenRest.API.Data
+{
     public class AppDbContext : DbContext
     {
-        public DbSet<CategoriaModel>? Categorias { get; set; }
+         public DbSet<CategoriaModel>? Categorias { get; set; }
         public DbSet<MesaModel>? Mesas { get; set; }
         public DbSet<GarconModel>? Garcons { get; set; }
         public DbSet<ProdutoModel>? Produtos { get; set; }
@@ -44,7 +44,6 @@ namespace GerenRest.RazorPages.Data {
                     jK => {
                         jK.HasKey("ProdutoID", "AtendimentoID");
                         jK.ToTable("AtendimentoProduto");
-                        //jK.Property<int>("Quantidade");
                     }
                 );
 
@@ -59,4 +58,4 @@ namespace GerenRest.RazorPages.Data {
                 .HasForeignKey("GarconID");
         }
     }
-}  
+}
