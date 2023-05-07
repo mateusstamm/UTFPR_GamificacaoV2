@@ -1,6 +1,7 @@
 using GerenRest.API.Data;
 using GerenRest.API.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace GerenRest.API.Controllers
 {
@@ -15,7 +16,9 @@ namespace GerenRest.API.Controllers
         public IActionResult Get(
             [FromServices] AppDbContext context)
         {
-            return Ok(context.Produtos!.ToList());
+            return Ok(context.Produtos!
+                            .Include(e => e.Categoria)
+                            .ToList());
         }
 
         [HttpGet("/[controller]/{id:int}")]
@@ -23,7 +26,7 @@ namespace GerenRest.API.Controllers
         public IActionResult GetById([FromRoute] int id,
                                     [FromServices] AppDbContext context)
         {
-            var produtoModel = context.Produtos!.FirstOrDefault(e => e.ProdutoID == id);
+            var produtoModel = context.Produtos!.Include(e => e.Categoria).FirstOrDefault(e => e.ProdutoID == id);
             if(produtoModel == null) {
                 return NotFound();
             }
@@ -46,7 +49,8 @@ namespace GerenRest.API.Controllers
                             [FromBody] ProdutoModel prodModel,
                             [FromServices] AppDbContext context)
         {
-            var ProdModel = context.Produtos!.FirstOrDefault(e => e.ProdutoID == id);
+            var ProdModel = context.Produtos!.Include(e => e.Categoria).FirstOrDefault(e => e.ProdutoID == id);
+            
             if(ProdModel == null) {
                 return NotFound();
             }

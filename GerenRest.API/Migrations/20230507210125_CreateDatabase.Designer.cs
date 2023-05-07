@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GerenRest.API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230506010107_inicial")]
-    partial class inicial
+    [Migration("20230507210125_CreateDatabase")]
+    partial class CreateDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

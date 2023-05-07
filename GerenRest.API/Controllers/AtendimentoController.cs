@@ -1,6 +1,7 @@
 using GerenRest.API.Data;
 using GerenRest.API.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace GerenRest.API.Controllers
 {
@@ -14,7 +15,12 @@ namespace GerenRest.API.Controllers
         public IActionResult Get(
             [FromServices] AppDbContext context)
         {
-            return Ok(context.Atendimentos!.ToList());
+            return Ok(context.Atendimentos!
+                        .Include(p => p.ListaProdutos)
+                        .Include(k => k.GarconResponsavel)
+                        .Include(l => l.MesaAtendida)
+                        .ToListAsync()
+                    );
         }
 
         [HttpGet("/[controller]/{id:int}")]
@@ -34,6 +40,8 @@ namespace GerenRest.API.Controllers
         public IActionResult Post([FromBody] AtendimentoModel ateModel,
                              [FromServices] AppDbContext context)
         {
+            
+            
             context.Atendimentos!.Add(ateModel);
             context.SaveChanges();
             return Created($"/{ateModel.AtendimentoID}", ateModel);

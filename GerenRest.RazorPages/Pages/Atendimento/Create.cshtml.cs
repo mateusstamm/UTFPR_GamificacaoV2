@@ -1,3 +1,5 @@
+using System.Net.Http.Headers;
+using System.Text;
 using GerenRest.RazorPages.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -36,6 +38,14 @@ namespace GerenRest.RazorPages.Pages.Atendimento
             if(!ModelState.IsValid)
                 return Page();
 
+            var data = new {
+                int AtendimentoID = null,
+                
+            }
+            const char aspa = '"';
+            var jsonAten = "{" + aspa + "AtendimentoID" + aspa + ":null, " + aspa + "MesaAtendida" + aspa + ": { " + aspa + "MesaID" + aspa + ": "
+                + MesaId + " }, " + aspa + "GarconResponsavel" + aspa + ": { " + aspa + "GarconID" + aspa + ": " + GarconId + "}, " + aspa + "ListaProdutos" + aspa + ": [ ";
+
             int[] prodConsumidos = Request.Form["ProdSelec"].Select(int.Parse!).ToArray();
             
             if(prodConsumidos.Length == 0) {
@@ -43,73 +53,82 @@ namespace GerenRest.RazorPages.Pages.Atendimento
                 return RedirectToPage("/Atendimento/Create");
             }
 
+            List<ProdutoModel> listProd = new List<ProdutoModel>();
+            AtenModel.PrecoTotal = 0;
+            int count = 1;
+
             using (var httpClient = new HttpClient())
             {
-                var url = $"http://localhost:5239/api/garcon/{GarconId}";
-                var response = await httpClient.GetAsync(url);
-                if(response.IsSuccessStatusCode)
+                foreach(var idProd in prodConsumidos)
                 {
-                    var content = await response.Content.ReadAsStringAsync();
-                    AtenModel.GarconResponsavel = JsonConvert.DeserializeObject<GarconModel>(content);
-                }
+                    if(count != prodConsumidos.Count())
+                        jsonAten += "{ "+ aspa +"ProdutoID"+ aspa +": " + idProd + "},";
+                    else
+                        jsonAten += "{ "+ aspa +"ProdutoID"+ aspa +": " + idProd + "} ],";
 
+                    string url = $"http://localhost:5239/Produto/{idProd}";
+                    var requestMes = new HttpRequestMessage(HttpMethod.Get, url);
+                    var response = await httpClient.SendAsync(requestMes);
+                
+                    var content = await response.Content.ReadAsStringAsync();
+                    var prod = JsonConvert.DeserializeObject<ProdutoModel>(content)!;
+                    AtenModel.PrecoTotal += prod.Preco;
+                    count++;
+                }
+            }
+
+            jsonAten += " "+ aspa +"HorarioAtendimento"+ aspa +": " + DateTime.Now + ", "+ aspa +"PrecoTotal"+ aspa +": " + AtenModel.PrecoTotal + " }";
+
+            using (HttpClient client = new HttpClient())
+            {
+                string apiUrl = "http://localhost:5239/Atendimento";
+
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var content = new StringContent(jsonAten, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await client.PostAsync(apiUrl, content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToPage("/Atendimento/Index");
+                }
+                else
+                {
+                    return StatusCode((int)response.StatusCode);
+                }
             }
             
-            AtenModel.HorarioAtendimento = DateTime.Now;
-
-            using (var httpClient = new HttpClient())
-            {
-                var url = $"http://localhost:5239/api/mesa/{MesaId}";
-                var response = await httpClient.GetAsync(url);
-                if(response.IsSuccessStatusCode)
-                {
-                    var content = await response.Content.ReadAsStringAsync();
-                    AtenModel.MesaAtendida = JsonConvert.DeserializeObject<MesaModel>(content);
-                    AtenModel.MesaAtendida!.Ocupada = "Livre";
-                    AtenModel.MesaAtendida!.HoraAbertura = DateTime.Now;
-                }
-
-            }
-
-            try {
-                _context.Add(AtenModel);
-                await _context.SaveChangesAsync();
-                ListAtend = await _context.Atendimentos!.Where(p => p.AtendimentoID == AtenModel.AtendimentoID).ToListAsync();
-
-                return RedirectToPage("/Atendimento/Index");
-                
-            } catch(DbUpdateException) {
-                return Page();
-            }
         }
 
         public async Task<IActionResult> OnGetAsync() {
-            // using (var httpClient = new HttpClient())
-            // {
-            //     var url = $"http://localhost:5239/api/garcon/";
-            //     var response = await httpClient.GetAsync(url);
-            //     if(response.IsSuccessStatusCode)
-            //     {
-            //         var content = await response.Content.ReadAsStringAsync();
-            //          = JsonConvert.DeserializeObject<List<MesaModel>>(content);
-                    
-            //     }
+            using (var httpClient = new HttpClient())
+            {
+                string url = "http://localhost:5239/Garcon";
 
-            // }
-            var httpClient = new HttpClient();
-            var url = $"http://localhost:{HttpContext.Request.Host.Port.ToString()}/api/garcon/";
-            var requestMessage = new HttpRequestMessage(HttpMethod.Get, url);
-            var response = await httpClient.SendAsync(requestMessage);
-            var content = await response.Content.ReadAsStringAsync();
-
-            GarconModel = JsonConvert.DeserializeObject<List<GarconModel>>(content!);
+                var requestMes = new HttpRequestMessage(HttpMethod.Get, url);
+                var response = await httpClient.SendAsync(requestMes);
+                
+                var content = await response.Content.ReadAsStringAsync();
+                GarconModel = JsonConvert.DeserializeObject<List<GarconModel>>(content!);
+            }
 
             if (GarconModel == null || GarconModel.Count == 0) {
                 TempData["ErroGarcon"] = "Não há garçons disponíveis!";
                 return RedirectToPage("/Atendimento/Index");
             }
 
-            MesaModel = JsonConvert.DeserializeObject<List<MesaModel>>(content!);
+            using (var httpClient = new HttpClient())
+            {
+                string url = "http://localhost:5239/Mesa";
+
+                var requestMes = new HttpRequestMessage(HttpMethod.Get, url);
+                var response = await httpClient.SendAsync(requestMes);
+                
+                var content = await response.Content.ReadAsStringAsync();
+                MesaModel = JsonConvert.DeserializeObject<List<MesaModel>>(content!);
+            }
 
             if (MesaModel == null || MesaModel.Count == 0) {
                 TempData["ErroMesaRegistro"] = "Não há mesas registradas!";
@@ -128,8 +147,17 @@ namespace GerenRest.RazorPages.Pages.Atendimento
                 return RedirectToPage("/Atendimento/Index");
             }
 
-            ProdModel = JsonConvert.DeserializeObject<List<ProdutoModel>>(content!);
+            using (var httpClient = new HttpClient())
+            {
+                string url = "http://localhost:5239/Produto";
 
+                var requestMes = new HttpRequestMessage(HttpMethod.Get, url);
+                var response = await httpClient.SendAsync(requestMes);
+                
+                var content = await response.Content.ReadAsStringAsync();
+                ProdModel = JsonConvert.DeserializeObject<List<ProdutoModel>>(content!);
+            }
+            
             if (ProdModel == null || ProdModel.Count == 0) {
                 TempData["ErroProduto"] = "Não há produtos registrados!";
                 return RedirectToPage("/Atendimento/Index");

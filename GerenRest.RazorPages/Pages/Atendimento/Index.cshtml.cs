@@ -1,26 +1,32 @@
-using GerenRest.RazorPages.Data;
 using GerenRest.RazorPages.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace GerenRest.RazorPages.Pages.Atendimento
 {
     public class Index : PageModel
     {
-        private readonly AppDbContext _context;
         public List<AtendimentoModel> AtenModel { get; set; } = new();
-        public Index(AppDbContext context)
+        public Index()
         {
-            _context = context;
+            
         }
         public async Task<IActionResult> OnGetAsync()
         {
-            AtenModel = await _context.Atendimentos!
-                .Include(p => p.ListaProdutos)
-                .Include(k => k.GarconResponsavel)
-                .Include(l => l.MesaAtendida)
-                .ToListAsync();
+            using (var httpClient = new HttpClient())
+            {
+                string url = "http://localhost:5239/Atendimento";
+
+                var requestMes = new HttpRequestMessage(HttpMethod.Get, url);
+                var response = await httpClient.SendAsync(requestMes);
+                
+                var content = await response.Content.ReadAsStringAsync();
+                
+
+                AtendimentoModelRoot atendimentoModelRoot = JsonConvert.DeserializeObject<AtendimentoModelRoot>(content)!;
+                AtenModel = atendimentoModelRoot.Result;
+            }
 
             return Page();
         }
