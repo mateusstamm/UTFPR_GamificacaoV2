@@ -4,12 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GerenRest.API.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
+    [ApiController]
     public class MesaController : ControllerBase
     {
         [HttpGet]
-        [Route("/")]
+        [Route("/[controller]")]
 
         public IActionResult Get(
             [FromServices] AppDbContext context)
@@ -17,7 +17,7 @@ namespace GerenRest.API.Controllers
             return Ok(context.Mesas!.ToList());
         }
 
-        [HttpGet("/{id:int}")]
+        [HttpGet("/[controller]/{id:int}")]
 
         public IActionResult GetById([FromRoute] int id,
                                     [FromServices] AppDbContext context)
@@ -29,7 +29,7 @@ namespace GerenRest.API.Controllers
             return Ok(mesaModel);
         }
 
-        [HttpPost("/")]
+        [HttpPost("/[controller]")]
 
         public IActionResult Post([FromBody] MesaModel mesaModel,
                              [FromServices] AppDbContext context)
@@ -39,7 +39,7 @@ namespace GerenRest.API.Controllers
             return Created($"/{mesaModel.MesaID}", mesaModel);
         }
 
-        [HttpPut("/")]
+        [HttpPut("/[controller]")]
 
         public IActionResult Put([FromRoute] int id,
                             [FromBody] MesaModel mesaModel,
@@ -59,7 +59,7 @@ namespace GerenRest.API.Controllers
             return Ok(MesaModel);
         }
 
-        [HttpDelete("/")]
+        [HttpDelete("/[controller]")]
 
         public IActionResult Delete([FromRoute] int id,
                             [FromServices] AppDbContext context)

@@ -1,22 +1,31 @@
-using GerenRest.RazorPages.Data;
 using GerenRest.RazorPages.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace GerenRest.RazorPages.Pages.Categoria
 {
     public class Index : PageModel
     {
-        private readonly AppDbContext _context;
         public List<CategoriaModel> CategoriaList { get; set; } = new();
-        public Index(AppDbContext context)
+        public Index()
         {
-            _context = context;
+            
         }
         public async Task<IActionResult> OnGetAsync()
         {
-            CategoriaList = await _context.Categorias!.ToListAsync();
+            //CategoriaList = await _context.Categorias!.ToListAsync();
+            using (var httpClient = new HttpClient())
+            {
+                var url = $"http://localhost:5239/categoria";
+                var response = await httpClient.GetAsync(url);
+                if(response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    CategoriaList = JsonConvert.DeserializeObject<List<CategoriaModel>>(content)!;
+                }
+
+            }
             return Page();
         }
     }

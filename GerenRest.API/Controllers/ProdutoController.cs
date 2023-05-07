@@ -1,19 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using GerenRest.API.Data;
 using GerenRest.API.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GerenRest.API.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
+    [ApiController]
+
     public class ProdutoController : ControllerBase
     {
         [HttpGet]
-        [Route("/")]
+        [Route("/[controller]")]
 
         public IActionResult Get(
             [FromServices] AppDbContext context)
@@ -21,7 +18,7 @@ namespace GerenRest.API.Controllers
             return Ok(context.Produtos!.ToList());
         }
 
-        [HttpGet("/{id:int}")]
+        [HttpGet("/[controller]/{id:int}")]
 
         public IActionResult GetById([FromRoute] int id,
                                     [FromServices] AppDbContext context)
@@ -33,7 +30,7 @@ namespace GerenRest.API.Controllers
             return Ok(produtoModel);
         }
 
-        [HttpPost("/")]
+        [HttpPost("/[controller]")]
 
         public IActionResult Post([FromBody] ProdutoModel prodModel,
                              [FromServices] AppDbContext context)
@@ -43,7 +40,7 @@ namespace GerenRest.API.Controllers
             return Created($"/{prodModel.ProdutoID}", prodModel);
         }
 
-        [HttpPut("/")]
+        [HttpPut("/[controller]")]
 
         public IActionResult Put([FromRoute] int id,
                             [FromBody] ProdutoModel prodModel,
@@ -64,7 +61,7 @@ namespace GerenRest.API.Controllers
             return Ok(ProdModel);
         }
 
-        [HttpDelete("/")]
+        [HttpDelete("/[controller]")]
 
         public IActionResult Delete([FromRoute] int id,
                             [FromServices] AppDbContext context)

@@ -4,12 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GerenRest.API.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
+    [ApiController]
     public class AtendimentoController : ControllerBase
     {
         [HttpGet]
-        [Route("/")]
+        [Route("/[controller]")]
 
         public IActionResult Get(
             [FromServices] AppDbContext context)
@@ -17,7 +17,7 @@ namespace GerenRest.API.Controllers
             return Ok(context.Atendimentos!.ToList());
         }
 
-        [HttpGet("/{id:int}")]
+        [HttpGet("/[controller]/{id:int}")]
 
         public IActionResult GetById([FromRoute] int id,
                                     [FromServices] AppDbContext context)
@@ -29,7 +29,7 @@ namespace GerenRest.API.Controllers
             return Ok(atendimentoModel);
         }
 
-        [HttpPost("/")]
+        [HttpPost("/[controller]")]
 
         public IActionResult Post([FromBody] AtendimentoModel ateModel,
                              [FromServices] AppDbContext context)
@@ -39,7 +39,7 @@ namespace GerenRest.API.Controllers
             return Created($"/{ateModel.AtendimentoID}", ateModel);
         }
 
-        [HttpPut("/")]
+        [HttpPut("/[controller]")]
 
         public IActionResult Put([FromRoute] int id,
                             [FromBody] AtendimentoModel ateModel,
@@ -62,7 +62,7 @@ namespace GerenRest.API.Controllers
             return Ok(AteModel);
         }
 
-        [HttpDelete("/")]
+        [HttpDelete("/[controller]")]
 
         public IActionResult Delete([FromRoute] int id,
                             [FromServices] AppDbContext context)

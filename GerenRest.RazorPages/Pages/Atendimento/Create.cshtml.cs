@@ -84,19 +84,20 @@ namespace GerenRest.RazorPages.Pages.Atendimento
         }
 
         public async Task<IActionResult> OnGetAsync() {
-            using (var httpClient = new HttpClient())
-            {
-                var url = $"http://localhost:5239/api/garcon/";
-                var response = await httpClient.GetAsync(url);
-                if(response.IsSuccessStatusCode)
-                {
-                    var content = await response.Content.ReadAsStringAsync();
-                     = JsonConvert.DeserializeObject<List<MesaModel>>(content);
+            // using (var httpClient = new HttpClient())
+            // {
+            //     var url = $"http://localhost:5239/api/garcon/";
+            //     var response = await httpClient.GetAsync(url);
+            //     if(response.IsSuccessStatusCode)
+            //     {
+            //         var content = await response.Content.ReadAsStringAsync();
+            //          = JsonConvert.DeserializeObject<List<MesaModel>>(content);
                     
-                }
+            //     }
 
-            }
+            // }
             var httpClient = new HttpClient();
+            var url = $"http://localhost:{HttpContext.Request.Host.Port.ToString()}/api/garcon/";
             var requestMessage = new HttpRequestMessage(HttpMethod.Get, url);
             var response = await httpClient.SendAsync(requestMessage);
             var content = await response.Content.ReadAsStringAsync();

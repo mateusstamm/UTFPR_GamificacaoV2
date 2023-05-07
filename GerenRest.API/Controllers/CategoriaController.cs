@@ -1,27 +1,22 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using GerenRest.API.Data;
 using GerenRest.API.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GerenRest.API.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
+    [ApiController]
+
     public class CategoriaController : ControllerBase
     {
-        [HttpGet]
-        [Route("/")]
+        [HttpGet("/[controller]")]
 
-        public IActionResult Get(
-            [FromServices] AppDbContext context)
+        public IActionResult Get([FromServices] AppDbContext context)
         {
             return Ok(context.Categorias!.ToList());
         }
 
-        [HttpGet("/{id:int}")]
+        [HttpGet("/[controller]/{id:int}")]
 
         public IActionResult GetById([FromRoute] int id,
                                     [FromServices] AppDbContext context)
@@ -33,7 +28,7 @@ namespace GerenRest.API.Controllers
             return Ok(categoriaModel);
         }
 
-        [HttpPost("/")]
+        [HttpPost("/[controller]")]
 
         public IActionResult Post([FromBody] CategoriaModel catModel,
                              [FromServices] AppDbContext context)
@@ -43,7 +38,7 @@ namespace GerenRest.API.Controllers
             return Created($"/{catModel.CategoriaID}", catModel);
         }
 
-        [HttpPut("/")]
+        [HttpPut("/[controller]")]
 
         public IActionResult Put([FromRoute] int id,
                             [FromBody] CategoriaModel catModel,
@@ -62,7 +57,7 @@ namespace GerenRest.API.Controllers
             return Ok(CatModel);
         }
 
-        [HttpDelete("/")]
+        [HttpDelete("/[controller]")]
 
         public IActionResult Delete([FromRoute] int id,
                             [FromServices] AppDbContext context)
