@@ -7,12 +7,12 @@ Projeto realizado com base em atividade de gamificação para a disciplina de Te
 O objetivo deste projeto é desenvolver um sistema de gerenciamento de pedidos de um restaurante, que permita criar atendimentos, incluir pedidos de produtos e realizar vendas.
 
 
-# Para rodar este projeto é necessário ter instalado na máquina:
+# Requisitos para execução do projeto
 
 - Visual Studio ou outra IDE de sua preferência;
 - SQLite, para o gerenciamento de banco de dados.
 
-# Como rodar o projeto
+# Como deixar em funcionamento
 
 - Clone o repositório ou faça o download do ZIP em um diretório;
 - Abra a solução GerenciadorRestaurante.sln no Visual Studio;
