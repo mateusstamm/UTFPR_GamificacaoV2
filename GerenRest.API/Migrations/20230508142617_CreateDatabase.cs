@@ -112,7 +112,7 @@ namespace GerenRest.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AtendimentoProduto", x => new { x.ProdutoID, x.AtendimentoID });
+                    table.PrimaryKey("PK_AtendimentoProduto", x => new { x.AtendimentoID, x.ProdutoID });
                     table.ForeignKey(
                         name: "FK_AtendimentoProduto_Atendimentos_AtendimentoID",
                         column: x => x.AtendimentoID,
@@ -128,9 +128,9 @@ namespace GerenRest.API.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_AtendimentoProduto_AtendimentoID",
+                name: "IX_AtendimentoProduto_ProdutoID",
                 table: "AtendimentoProduto",
-                column: "AtendimentoID");
+                column: "ProdutoID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Atendimentos_GarconID",

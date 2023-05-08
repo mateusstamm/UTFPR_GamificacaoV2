@@ -38,12 +38,21 @@ namespace GerenRest.API.Controllers
         [HttpPost("/[controller]")]
 
         public IActionResult Post([FromBody] AtendimentoModel ateModel,
-                             [FromServices] AppDbContext context)
+                                [FromServices] AppDbContext context)
         {
-            
+            List<int> prodsId = new List<int>();
+
+            foreach(var prod in ateModel.ListaProdutos!)
+            {
+                prodsId.Add(prod.ProdutoID!.Value);
+            }
+
+            ateModel.ListaProdutos = null;
             
             context.Atendimentos!.Add(ateModel);
             context.SaveChanges();
+
+            
             return Created($"/{ateModel.AtendimentoID}", ateModel);
         }
 

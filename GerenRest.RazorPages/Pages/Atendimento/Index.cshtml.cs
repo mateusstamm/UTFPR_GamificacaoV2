@@ -25,7 +25,7 @@ namespace GerenRest.RazorPages.Pages.Atendimento
                 
 
                 AtendimentoModelRoot atendimentoModelRoot = JsonConvert.DeserializeObject<AtendimentoModelRoot>(content)!;
-                AtenModel = atendimentoModelRoot.Result;
+                AtenModel = atendimentoModelRoot.Result!;
             }
 
             return Page();

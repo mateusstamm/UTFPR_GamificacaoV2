@@ -5,11 +5,12 @@ namespace GerenRest.API.Data
 {
     public class AppDbContext : DbContext
     {
-         public DbSet<CategoriaModel>? Categorias { get; set; }
+        public DbSet<CategoriaModel>? Categorias { get; set; }
         public DbSet<MesaModel>? Mesas { get; set; }
         public DbSet<GarconModel>? Garcons { get; set; }
         public DbSet<ProdutoModel>? Produtos { get; set; }
         public DbSet<AtendimentoModel>? Atendimentos { get; set; }
+        public DbSet<AtendimentoProdutoModel>? AtendimentoProduto { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder options)
             => options.UseSqlite("DataSource=gerenRest.db;Cache=Shared");
 
@@ -34,18 +35,25 @@ namespace GerenRest.API.Data
             modelBuilder.Entity<AtendimentoModel>().ToTable("Atendimentos").HasKey(c => c.AtendimentoID);
             modelBuilder.Entity<AtendimentoModel>().Property(v => v.AtendimentoID).ValueGeneratedOnAdd();
 
-            modelBuilder.Entity<AtendimentoModel>()
-                .HasMany(k => k.ListaProdutos)
+            /*modelBuilder.Entity<AtendimentoProdutoModel>().ToTable("AtendimentoProduto").HasNoKey();
+
+            modelBuilder.Entity<AtendimentoProdutoModel>()
+                .HasOne(e => e.Atendimento)
                 .WithMany()
-                .UsingEntity<Dictionary<string, object>>(
-                    "AtendimentoProduto",
-                    j => j.HasOne<ProdutoModel>().WithMany().HasForeignKey("ProdutoID"),
-                    k => k.HasOne<AtendimentoModel>().WithMany().HasForeignKey("AtendimentoID"),
-                    jK => {
-                        jK.HasKey("ProdutoID", "AtendimentoID");
-                        jK.ToTable("AtendimentoProduto");
-                    }
-                );
+                .HasForeignKey("AtendimentoID")
+
+            modelBuilder.Entity<AtendimentoProdutoModel>()
+                .HasOne(p => p.Produto)
+                .WithMany()
+                .HasForeignKey("ProdutoID");*/
+
+            modelBuilder.Entity<AtendimentoModel>()
+                 .HasMany(k => k.ListaProdutos)
+                 .WithMany()
+                 .UsingEntity<AtendimentoProdutoModel>(
+                     
+                 
+                 );
 
             modelBuilder.Entity<AtendimentoModel>()
                 .HasOne(p => p.MesaAtendida)

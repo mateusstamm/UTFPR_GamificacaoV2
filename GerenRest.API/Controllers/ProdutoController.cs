@@ -38,6 +38,7 @@ namespace GerenRest.API.Controllers
         public IActionResult Post([FromBody] ProdutoModel prodModel,
                              [FromServices] AppDbContext context)
         {
+            
             context.Produtos!.Add(prodModel);
             context.SaveChanges();
             return Created($"/{prodModel.ProdutoID}", prodModel);

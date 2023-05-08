@@ -9,23 +9,27 @@ using Newtonsoft.Json;
 namespace GerenRest.RazorPages.Pages.Atendimento
 {
     public class Create : PageModel
-    {
-        public class QuantProduto {
-            public ProdutoModel? Produto { get; set; }
-            public int Quantidade { get; set; }
-        }
+    {   
+        private class DadosJson {
+            
 
+            public int? AtendimentoID { get; set; } = null;
+            public int? MesaID { get; set; }
+            public int? GarconID { get; set; }
+            public DateTime HorarioAtendimento { get; set; }
+            public float PrecoTotal { get; set; }
+        }
         [BindProperty]
         public AtendimentoModel AtenModel { get; set; } = new();
         public List<GarconModel>? GarconModel { get; set; }
         public List<MesaModel>? MesaModel { get; set; }
         public List<ProdutoModel>? ProdModel { get; set; }
         [BindProperty]
-        public int? GarconId { get; set; }
+        public int GarconId { get; set; }
         [BindProperty]
-        public int? MesaId { get; set; }
+        public int MesaId { get; set; }
         [BindProperty]
-        public int? ProdId { get; set; }
+        public int ProdId { get; set; }
         public List<AtendimentoModel>? ListAtend { get; set; }
         public Create()
         {
@@ -38,13 +42,12 @@ namespace GerenRest.RazorPages.Pages.Atendimento
             if(!ModelState.IsValid)
                 return Page();
 
-            var data = new {
-                int AtendimentoID = null,
-                
-            }
-            const char aspa = '"';
-            var jsonAten = "{" + aspa + "AtendimentoID" + aspa + ":null, " + aspa + "MesaAtendida" + aspa + ": { " + aspa + "MesaID" + aspa + ": "
-                + MesaId + " }, " + aspa + "GarconResponsavel" + aspa + ": { " + aspa + "GarconID" + aspa + ": " + GarconId + "}, " + aspa + "ListaProdutos" + aspa + ": [ ";
+            DadosJson dadosJson = new DadosJson();
+
+            // const char aspa = '"';
+
+            // var jsonAten = "{" + aspa + "AtendimentoID" + aspa + ":null, " + aspa + "MesaAtendida" + aspa + ": { " + aspa + "MesaID" + aspa + ": "
+            //     + MesaId + " }, " + aspa + "GarconResponsavel" + aspa + ": { " + aspa + "GarconID" + aspa + ": " + GarconId + "}, " + aspa + "ListaProdutos" + aspa + ": [ ";
 
             int[] prodConsumidos = Request.Form["ProdSelec"].Select(int.Parse!).ToArray();
             
@@ -61,10 +64,11 @@ namespace GerenRest.RazorPages.Pages.Atendimento
             {
                 foreach(var idProd in prodConsumidos)
                 {
-                    if(count != prodConsumidos.Count())
-                        jsonAten += "{ "+ aspa +"ProdutoID"+ aspa +": " + idProd + "},";
-                    else
-                        jsonAten += "{ "+ aspa +"ProdutoID"+ aspa +": " + idProd + "} ],";
+
+                    // if(count != prodConsumidos.Count())
+                    //     jsonAten += "{ "+ aspa +"ProdutoID"+ aspa +": " + idProd + "},";
+                    // else
+                    //     jsonAten += "{ "+ aspa +"ProdutoID"+ aspa +": " + idProd + "} ],";
 
                     string url = $"http://localhost:5239/Produto/{idProd}";
                     var requestMes = new HttpRequestMessage(HttpMethod.Get, url);
@@ -72,12 +76,18 @@ namespace GerenRest.RazorPages.Pages.Atendimento
                 
                     var content = await response.Content.ReadAsStringAsync();
                     var prod = JsonConvert.DeserializeObject<ProdutoModel>(content)!;
+                    dadosJson.listaProdutos!.ProdutoID!.Add(idProd);
                     AtenModel.PrecoTotal += prod.Preco;
                     count++;
                 }
             }
 
-            jsonAten += " "+ aspa +"HorarioAtendimento"+ aspa +": " + DateTime.Now + ", "+ aspa +"PrecoTotal"+ aspa +": " + AtenModel.PrecoTotal + " }";
+            dadosJson.PrecoTotal = AtenModel.PrecoTotal.Value;
+            dadosJson.HorarioAtendimento = DateTime.Now;
+
+            string json = JsonConvert.SerializeObject(dadosJson);
+
+            // jsonAten += " "+ aspa +"HorarioAtendimento"+ aspa +": " + DateTime.Now + ", "+ aspa +"PrecoTotal"+ aspa +": " + AtenModel.PrecoTotal + " }";
 
             using (HttpClient client = new HttpClient())
             {
@@ -86,7 +96,7 @@ namespace GerenRest.RazorPages.Pages.Atendimento
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                var content = new StringContent(jsonAten, Encoding.UTF8, "application/json");
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
 
                 HttpResponseMessage response = await client.PostAsync(apiUrl, content);
 

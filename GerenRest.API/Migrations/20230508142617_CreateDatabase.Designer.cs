@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GerenRest.API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230507210125_CreateDatabase")]
+    [Migration("20230508142617_CreateDatabase")]
     partial class CreateDatabase
     {
         /// <inheritdoc />
@@ -19,21 +19,6 @@ namespace GerenRest.API.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.5");
-
-            modelBuilder.Entity("AtendimentoProduto", b =>
-                {
-                    b.Property<int>("ProdutoID")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("AtendimentoID")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("ProdutoID", "AtendimentoID");
-
-                    b.HasIndex("AtendimentoID");
-
-                    b.ToTable("AtendimentoProduto", (string)null);
-                });
 
             modelBuilder.Entity("GerenRest.API.Models.AtendimentoModel", b =>
                 {
@@ -60,6 +45,21 @@ namespace GerenRest.API.Migrations
                     b.HasIndex("MesaID");
 
                     b.ToTable("Atendimentos", (string)null);
+                });
+
+            modelBuilder.Entity("GerenRest.API.Models.AtendimentoProdutoModel", b =>
+                {
+                    b.Property<int?>("AtendimentoID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("ProdutoID")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("AtendimentoID", "ProdutoID");
+
+                    b.HasIndex("ProdutoID");
+
+                    b.ToTable("AtendimentoProduto");
                 });
 
             modelBuilder.Entity("GerenRest.API.Models.CategoriaModel", b =>
@@ -147,21 +147,6 @@ namespace GerenRest.API.Migrations
                     b.ToTable("Produtos", (string)null);
                 });
 
-            modelBuilder.Entity("AtendimentoProduto", b =>
-                {
-                    b.HasOne("GerenRest.API.Models.AtendimentoModel", null)
-                        .WithMany()
-                        .HasForeignKey("AtendimentoID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GerenRest.API.Models.ProdutoModel", null)
-                        .WithMany()
-                        .HasForeignKey("ProdutoID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("GerenRest.API.Models.AtendimentoModel", b =>
                 {
                     b.HasOne("GerenRest.API.Models.GarconModel", "GarconResponsavel")
@@ -175,6 +160,25 @@ namespace GerenRest.API.Migrations
                     b.Navigation("GarconResponsavel");
 
                     b.Navigation("MesaAtendida");
+                });
+
+            modelBuilder.Entity("GerenRest.API.Models.AtendimentoProdutoModel", b =>
+                {
+                    b.HasOne("GerenRest.API.Models.AtendimentoModel", "Atendimento")
+                        .WithMany()
+                        .HasForeignKey("AtendimentoID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GerenRest.API.Models.ProdutoModel", "Produto")
+                        .WithMany()
+                        .HasForeignKey("ProdutoID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Atendimento");
+
+                    b.Navigation("Produto");
                 });
 
             modelBuilder.Entity("GerenRest.API.Models.ProdutoModel", b =>
