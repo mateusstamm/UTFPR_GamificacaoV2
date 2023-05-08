@@ -48,11 +48,19 @@ namespace GerenRest.API.Controllers
             }
 
             ateModel.ListaProdutos = null;
-            
             context.Atendimentos!.Add(ateModel);
             context.SaveChanges();
-
             
+            var prodAte = new AtendimentoProdutoModel();
+
+            foreach(int idProd in prodsId)
+            {
+                prodAte.AtendimentoID = ateModel.AtendimentoID;
+                prodAte.ProdutoID = idProd;
+                context.AtendimentoProduto!.Add(prodAte);
+            }
+
+            context.SaveChanges();
             return Created($"/{ateModel.AtendimentoID}", ateModel);
         }
 

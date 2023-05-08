@@ -11,11 +11,10 @@ namespace GerenRest.RazorPages.Pages.Atendimento
     public class Create : PageModel
     {   
         private class DadosJson {
-            
-
             public int? AtendimentoID { get; set; } = null;
             public int? MesaID { get; set; }
             public int? GarconID { get; set; }
+            public List<ProdutoModel> ListaProdutos { get; set; } = new();
             public DateTime HorarioAtendimento { get; set; }
             public float PrecoTotal { get; set; }
         }
@@ -35,7 +34,6 @@ namespace GerenRest.RazorPages.Pages.Atendimento
         {
             
         }
-    
         public async Task<IActionResult> OnPostAsync()
         {
             
@@ -43,11 +41,8 @@ namespace GerenRest.RazorPages.Pages.Atendimento
                 return Page();
 
             DadosJson dadosJson = new DadosJson();
-
-            // const char aspa = '"';
-
-            // var jsonAten = "{" + aspa + "AtendimentoID" + aspa + ":null, " + aspa + "MesaAtendida" + aspa + ": { " + aspa + "MesaID" + aspa + ": "
-            //     + MesaId + " }, " + aspa + "GarconResponsavel" + aspa + ": { " + aspa + "GarconID" + aspa + ": " + GarconId + "}, " + aspa + "ListaProdutos" + aspa + ": [ ";
+            dadosJson.GarconID = GarconId;
+            dadosJson.MesaID = MesaId;
 
             int[] prodConsumidos = Request.Form["ProdSelec"].Select(int.Parse!).ToArray();
             
@@ -56,29 +51,23 @@ namespace GerenRest.RazorPages.Pages.Atendimento
                 return RedirectToPage("/Atendimento/Create");
             }
 
-            List<ProdutoModel> listProd = new List<ProdutoModel>();
             AtenModel.PrecoTotal = 0;
-            int count = 1;
 
             using (var httpClient = new HttpClient())
             {
                 foreach(var idProd in prodConsumidos)
                 {
-
-                    // if(count != prodConsumidos.Count())
-                    //     jsonAten += "{ "+ aspa +"ProdutoID"+ aspa +": " + idProd + "},";
-                    // else
-                    //     jsonAten += "{ "+ aspa +"ProdutoID"+ aspa +": " + idProd + "} ],";
-
                     string url = $"http://localhost:5239/Produto/{idProd}";
                     var requestMes = new HttpRequestMessage(HttpMethod.Get, url);
                     var response = await httpClient.SendAsync(requestMes);
                 
                     var content = await response.Content.ReadAsStringAsync();
                     var prod = JsonConvert.DeserializeObject<ProdutoModel>(content)!;
-                    dadosJson.listaProdutos!.ProdutoID!.Add(idProd);
+                    
                     AtenModel.PrecoTotal += prod.Preco;
-                    count++;
+                    dadosJson.ListaProdutos.Add(new ProdutoModel() {
+                        ProdutoID = idProd
+                    });
                 }
             }
 
@@ -86,8 +75,6 @@ namespace GerenRest.RazorPages.Pages.Atendimento
             dadosJson.HorarioAtendimento = DateTime.Now;
 
             string json = JsonConvert.SerializeObject(dadosJson);
-
-            // jsonAten += " "+ aspa +"HorarioAtendimento"+ aspa +": " + DateTime.Now + ", "+ aspa +"PrecoTotal"+ aspa +": " + AtenModel.PrecoTotal + " }";
 
             using (HttpClient client = new HttpClient())
             {
