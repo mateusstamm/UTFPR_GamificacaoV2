@@ -1,0 +1,18 @@
+@page "{id:int}"
+@model GerenRest.RazorPages.Pages.Atendimento.Delete
+
+<div>
+    <h1>Detalhes do atendimento a ser deletado.</h1>
+
+    <p><strong>Numero da mesa:</strong> @Model.AtenModel.MesaAtendida!.Numero</p>
+    <p><strong>Garçon Responsável:</strong> @Model.AtenModel.GarconResponsavel!.Nome</p>
+    <p><strong>Horario Atendimento:</strong> @Model.AtenModel.HorarioAtendimento</p>
+    <p><strong>Preço Total:</strong> @Model.AtenModel.PrecoTotal</p>
+</div>
+
+<form method="post">
+    <div class="form-group">
+        <input type="submit" value="Deletar" class="btn btn-danger"/>
+        <a asp-page="./Atendimento/Index" class="btn btn-primary">Retornar para a listagem</a>
+    </div>
+</form>

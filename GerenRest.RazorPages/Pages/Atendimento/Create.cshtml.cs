@@ -84,7 +84,6 @@ namespace GerenRest.RazorPages.Pages.Atendimento
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-
                 HttpResponseMessage response = await client.PostAsync(apiUrl, content);
 
                 if (response.IsSuccessStatusCode)

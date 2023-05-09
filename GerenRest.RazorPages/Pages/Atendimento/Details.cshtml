@@ -1,0 +1,13 @@
+@page "{id:int}"
+@model GerenRest.RazorPages.Pages.Atendimento.Details
+
+<h1>Detalhes do Atendimento</h1>
+
+<div>
+    <p><strong>Numero da mesa:</strong> @Model.AtenModel.MesaAtendida!.Numero</p>
+    <p><strong>Garçon Responsável:</strong> @Model.AtenModel.GarconResponsavel!.Nome</p>
+    <p><strong>Horario Atendimento:</strong> @Model.AtenModel.HorarioAtendimento</p>
+    <p><strong>Preço Total:</strong> @Model.AtenModel.PrecoTotal</p>
+</div>
+
+<a class="btn btn-primary" asp-page="/Atendimento/Index">Voltar para a lista</a>

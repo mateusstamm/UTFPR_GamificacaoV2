@@ -1,25 +1,31 @@
 {
   "format": 1,
   "restore": {
-    "C:\\GitHub\\UTFPR_GamificacaoV2\\GerenRest.RazorPages\\GerenRest.RazorPages.csproj": {}
+    "D:\\GitHub\\UTFPR_GamificacaoV2\\GerenRest.RazorPages\\GerenRest.RazorPages.csproj": {}
   },
   "projects": {
-    "C:\\GitHub\\UTFPR_GamificacaoV2\\GerenRest.RazorPages\\GerenRest.RazorPages.csproj": {
+    "D:\\GitHub\\UTFPR_GamificacaoV2\\GerenRest.RazorPages\\GerenRest.RazorPages.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\GitHub\\UTFPR_GamificacaoV2\\GerenRest.RazorPages\\GerenRest.RazorPages.csproj",
+        "projectUniqueName": "D:\\GitHub\\UTFPR_GamificacaoV2\\GerenRest.RazorPages\\GerenRest.RazorPages.csproj",
         "projectName": "GerenRest.RazorPages",
-        "projectPath": "C:\\GitHub\\UTFPR_GamificacaoV2\\GerenRest.RazorPages\\GerenRest.RazorPages.csproj",
-        "packagesPath": "C:\\Users\\Daniel\\.nuget\\packages\\",
-        "outputPath": "C:\\GitHub\\UTFPR_GamificacaoV2\\GerenRest.RazorPages\\obj\\",
+        "projectPath": "D:\\GitHub\\UTFPR_GamificacaoV2\\GerenRest.RazorPages\\GerenRest.RazorPages.csproj",
+        "packagesPath": "C:\\Users\\danib\\.nuget\\packages\\",
+        "outputPath": "D:\\GitHub\\UTFPR_GamificacaoV2\\GerenRest.RazorPages\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Daniel\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\danib\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -72,7 +78,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
         }
       }
     }

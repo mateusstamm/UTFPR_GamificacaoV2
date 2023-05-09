@@ -9,6 +9,8 @@ namespace GerenRest.API.Controllers
     [ApiController]
     public class AtendimentoController : ControllerBase
     {
+        AtendimentoModel atenModel = new AtendimentoModel();
+
         [HttpGet]
         [Route("/[controller]")]
 
@@ -27,12 +29,8 @@ namespace GerenRest.API.Controllers
 
         public IActionResult GetById([FromRoute] int id,
                                     [FromServices] AppDbContext context)
-        {
-            var atendimentoModel = context.Atendimentos!.FirstOrDefault(e => e.AtendimentoID == id);
-            if(atendimentoModel == null) {
-                return NotFound();
-            }
-            return Ok(atendimentoModel);
+        { 
+            return Ok(context.Atendimentos!.Include(t => t.GarconResponsavel).FirstOrDefaultAsync(e => e.AtendimentoID == id));
         }
 
         [HttpPost("/[controller]")]
