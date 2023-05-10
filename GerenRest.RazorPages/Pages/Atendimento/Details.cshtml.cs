@@ -1,7 +1,6 @@
 using GerenRest.RazorPages.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
 namespace GerenRest.RazorPages.Pages.Atendimento
@@ -20,21 +19,23 @@ namespace GerenRest.RazorPages.Pages.Atendimento
                 return NotFound();
             }
 
-            AtendimentoModelRoot atenModel = new AtendimentoModelRoot();
-
             using (var httpClient = new HttpClient())
             {
                 string url = $"http://localhost:5239/Atendimento/{id}";
 
-                var requestMes = new HttpRequestMessage(HttpMethod.Get, url);
-                var response = await httpClient.SendAsync(requestMes);
+                var response = await httpClient.GetAsync(url);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return NotFound();
+                }
                 
                 var content = await response.Content.ReadAsStringAsync();
-                
-                atenModel = JsonConvert.DeserializeObject<AtendimentoModelRoot>(content)!;   
+                var atendimentoModelRoot = JsonConvert.DeserializeObject<AtendimentoModelRoot>(content)!;
+                AtenModel = atendimentoModelRoot.Atendimento!;
             }
 
-            if(atenModel == null) {
+            if(AtenModel == null) {
                 return NotFound();
             }
 

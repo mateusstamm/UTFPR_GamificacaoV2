@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GerenRest.RazorPages", "GerenRest.RazorPages\GerenRest.RazorPages.csproj", "{AE013142-BA8A-4CD8-88FC-444F13F4FA63}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GerenRest.API", "GerenRest.API\GerenRest.API.csproj", "{BD230A26-6830-4712-BD01-850100510316}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "API\API.csproj", "{EBB50AC1-8D96-4725-BCF8-13559F86995E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,5 +24,9 @@ Global
 		{BD230A26-6830-4712-BD01-850100510316}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD230A26-6830-4712-BD01-850100510316}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD230A26-6830-4712-BD01-850100510316}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBB50AC1-8D96-4725-BCF8-13559F86995E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBB50AC1-8D96-4725-BCF8-13559F86995E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBB50AC1-8D96-4725-BCF8-13559F86995E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBB50AC1-8D96-4725-BCF8-13559F86995E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
