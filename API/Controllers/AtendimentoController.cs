@@ -69,7 +69,7 @@ namespace API.Controllers
             return Created($"/{ateModel.AtendimentoID}", ateModel);
         }
 
-        [HttpPut("/[controller]")]
+        [HttpPut("/[controller]/{id:int}")]
 
         public IActionResult Put([FromRoute] int id,
                             [FromBody] AtendimentoModel ateModel,
@@ -92,12 +92,13 @@ namespace API.Controllers
             return Ok(AteModel);
         }
 
-        [HttpDelete("/[controller]")]
+        [HttpDelete("/[controller]/{id:int}")]
 
         public IActionResult Delete([FromRoute] int id,
                             [FromServices] AppDbContext context)
         {
             var AteModel = context.Atendimentos!.FirstOrDefault(e => e.AtendimentoID == id);
+
             if(AteModel == null) {
                 return NotFound();
             }
@@ -106,6 +107,5 @@ namespace API.Controllers
             context.SaveChanges();
             return Ok(AteModel);
         }
-
     }
 }

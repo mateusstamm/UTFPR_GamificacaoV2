@@ -1,0 +1,27 @@
+@page
+@model GerenRest.RazorPages.Pages.Categoria.Create
+
+<h1>Criar nova Categoria</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-dange"></div>
+            <div class="form-group">
+                <label asp-for="CatModel.Nome">Nome da Categoria</label>
+                <input asp-for="CatModel.Nome" class="form-control">
+                <span asp-validation-for="CatModel.Nome" class="text-dange"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CatModel.Descricao">Descrição</label>
+                <input asp-for="CatModel.Descricao" class="form-control">
+                <span asp-validation-for="CatModel.Descricao" class="text-dange"></span>
+            </div>
+            <br/>
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" value="Salvar"/>
+                <a asp-page="/Categoria/Index" class="btn btn-secondary">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>

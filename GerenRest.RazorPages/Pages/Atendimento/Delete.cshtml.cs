@@ -1,7 +1,7 @@
 using GerenRest.RazorPages.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace GerenRest.RazorPages.Pages.Atendimento
 {
@@ -15,42 +15,51 @@ namespace GerenRest.RazorPages.Pages.Atendimento
             
         }
 
-        /*public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int? id)
         {
             if(id == null) {
                 return NotFound();
             }
 
-            var atenModel = await _context.Atendimentos
-                                        .Include(p => p.GarconResponsavel)
-                                        .Include(k => k.ListaProdutos)
-                                        .Include(l => l.MesaAtendida)
-                                        .FirstOrDefaultAsync(e => e.AtendimentoID == id);
+            using (var httpClient = new HttpClient())
+            {
+                string url = $"http://localhost:5239/Atendimento/{id}";
 
-            if(atenModel == null) {
-                return NotFound();
+                var response = await httpClient.GetAsync(url);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return NotFound();
+                }
+                
+                var content = await response.Content.ReadAsStringAsync();
+                var atendimentoModelRoot = JsonConvert.DeserializeObject<AtendimentoModelRoot>(content)!;
+                AtenModel = atendimentoModelRoot.Atendimento!;
             }
 
-            AtenModel = atenModel;
+            if(AtenModel == null) {
+                return NotFound();
+            }
 
             return Page();
         }
     
         public async Task<IActionResult> OnPostAsync(int id)
         {
-            var atenToDelete = await _context.Atendimentos!.FindAsync(id);
 
-            if(atenToDelete == null) {
-                return NotFound();
+            using (var httpClient = new HttpClient())
+            {
+                string url = $"http://localhost:5239/Atendimento/{id}";
+
+                var response = await httpClient.DeleteAsync(url);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return NotFound();
+                }
             }
 
-            try {
-                _context.Atendimentos.Remove(atenToDelete);
-                await _context.SaveChangesAsync();
-                return RedirectToPage("/Atendimento/Index");
-            } catch(DbUpdateException) {
-                return Page();
-            }
-        }*/
+            return RedirectToPage("./Index");
+        }
     }
 }

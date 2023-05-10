@@ -1,0 +1,16 @@
+@page "{id:int}"
+@model GerenRest.RazorPages.Pages.Categoria.Delete
+
+<div>
+    <h1>Detalhes da categoria a ser removido</h1>
+
+    <p><strong>Nome:</strong> @Model.CatModel.Nome</p>
+    <p><strong>Descrição:</strong> @Model.CatModel.Descricao</p>
+</div>
+
+<form method="post">
+    <div class="form-group">
+        <input type="submit" value="Deletar" class="btn btn-danger"/>
+        <a asp-page="./Categoria/Index" class="btn btn-primary">Retornar para a listagem</a>
+    </div>
+</form>
