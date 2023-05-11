@@ -1,6 +1,7 @@
 using API.Data;
 using API.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
@@ -14,7 +15,7 @@ namespace API.Controllers
         public IActionResult Get(
             [FromServices] AppDbContext context)
         {
-            return Ok(context.Mesas!.ToList());
+            return Ok(context.Mesas!.ToListAsync().Result);
         }
 
         [HttpGet("/[controller]/{id:int}")]
@@ -22,11 +23,7 @@ namespace API.Controllers
         public IActionResult GetById([FromRoute] int id,
                                     [FromServices] AppDbContext context)
         {
-            var mesaModel = context.Mesas!.FirstOrDefault(e => e.MesaID == id);
-            if(mesaModel == null) {
-                return NotFound();
-            }
-            return Ok(mesaModel);
+            return Ok(context.Mesas!.FirstOrDefaultAsync(e => e.MesaID == id).Result);
         }
 
         [HttpPost("/[controller]")]
@@ -39,7 +36,7 @@ namespace API.Controllers
             return Created($"/{mesaModel.MesaID}", mesaModel);
         }
 
-        [HttpPut("/[controller]")]
+        [HttpPut("/[controller]/{id:int}")]
 
         public IActionResult Put([FromRoute] int id,
                             [FromBody] MesaModel mesaModel,
@@ -59,12 +56,13 @@ namespace API.Controllers
             return Ok(MesaModel);
         }
 
-        [HttpDelete("/[controller]")]
+        [HttpDelete("/[controller]/{id:int}")]
 
         public IActionResult Delete([FromRoute] int id,
                             [FromServices] AppDbContext context)
         {
-            var MesaModel = context.Mesas!.FirstOrDefault(e => e.MesaID == id);
+            var MesaModel = context.Mesas!.FirstOrDefaultAsync(e => e.MesaID == id).Result;
+            
             if(MesaModel == null) {
                 return NotFound();
             }

@@ -1,6 +1,7 @@
 using API.Data;
 using API.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
@@ -14,7 +15,7 @@ namespace API.Controllers
         public IActionResult Get(
             [FromServices] AppDbContext context)
         {
-            return Ok(context.Garcons!.ToList());
+            return Ok(context.Garcons!.ToListAsync().Result);
         }
 
         [HttpGet("/[controller]/{id:int}")]
@@ -22,11 +23,7 @@ namespace API.Controllers
         public IActionResult GetById([FromRoute] int id,
                                     [FromServices] AppDbContext context)
         {
-            var garconModel = context.Garcons!.FirstOrDefault(e => e.GarconID == id);
-            if(garconModel == null) {
-                return NotFound();
-            }
-            return Ok(garconModel);
+            return Ok(context.Garcons!.FirstOrDefaultAsync(e => e.GarconID == id).Result);
         }
 
         [HttpPost("/[controller]")]
@@ -45,16 +42,16 @@ namespace API.Controllers
                             [FromBody] GarconModel garModel,
                             [FromServices] AppDbContext context)
         {
-            var GarModel = context.Garcons!.FirstOrDefault(e => e.GarconID == id);
+            var GarModel = context.Garcons!.FirstOrDefaultAsync(e => e.GarconID == id).Result;
+
             if(GarModel == null) {
                 return NotFound();
             }
             
-            GarModel.GarconID = GarModel.GarconID;
-            GarModel.Nome = GarModel.Nome;
-            GarModel.Sobrenome = GarModel.Sobrenome;
-            GarModel.NumIdentificao = GarModel.NumIdentificao;
-            GarModel.Telefone = GarModel.Telefone;
+            GarModel.Nome = garModel.Nome;
+            GarModel.Sobrenome = garModel.Sobrenome;
+            GarModel.NumIdentificao = garModel.NumIdentificao;
+            GarModel.Telefone = garModel.Telefone;
             
             context.Garcons!.Update(GarModel);
             context.SaveChanges();
@@ -66,7 +63,8 @@ namespace API.Controllers
         public IActionResult Delete([FromRoute] int id,
                             [FromServices] AppDbContext context)
         {
-            var GarconModel = context.Garcons!.FirstOrDefault(e => e.GarconID == id);
+            var GarconModel = context.Garcons!.FirstOrDefaultAsync(e => e.GarconID == id).Result!;
+            
             if(GarconModel == null) {
                 return NotFound();
             }

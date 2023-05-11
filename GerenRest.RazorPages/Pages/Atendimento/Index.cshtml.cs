@@ -23,8 +23,7 @@ namespace GerenRest.RazorPages.Pages.Atendimento
                 
                 var content = await response.Content.ReadAsStringAsync();
                 
-                AtendimentoModelRootList atendimentoModelRoot = JsonConvert.DeserializeObject<AtendimentoModelRootList>(content)!;
-                AtenModel = atendimentoModelRoot.Atendimento!;
+                AtenModel = JsonConvert.DeserializeObject<List<AtendimentoModel>>(content)!;
             }
 
             return Page();

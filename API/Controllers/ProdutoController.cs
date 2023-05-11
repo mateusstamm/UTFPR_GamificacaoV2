@@ -44,13 +44,13 @@ namespace API.Controllers
             return Created($"/{prodModel.ProdutoID}", prodModel);
         }
 
-        [HttpPut("/[controller]")]
+        [HttpPut("/[controller]/{id:int}")]
 
         public IActionResult Put([FromRoute] int id,
                             [FromBody] ProdutoModel prodModel,
                             [FromServices] AppDbContext context)
         {
-            var ProdModel = context.Produtos!.Include(e => e.Categoria).FirstOrDefault(e => e.ProdutoID == id);
+            var ProdModel = context.Produtos!.Include(e => e.Categoria).FirstOrDefaultAsync(e => e.ProdutoID == id).Result;
             
             if(ProdModel == null) {
                 return NotFound();
@@ -71,7 +71,8 @@ namespace API.Controllers
         public IActionResult Delete([FromRoute] int id,
                             [FromServices] AppDbContext context)
         {
-            var ProdModel = context.Produtos!.FirstOrDefault(e => e.ProdutoID == id);
+            var ProdModel = context.Produtos!.FirstOrDefaultAsync(e => e.ProdutoID == id).Result;
+            
             if(ProdModel == null) {
                 return NotFound();
             }

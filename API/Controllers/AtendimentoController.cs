@@ -23,6 +23,7 @@ namespace API.Controllers
                         .Include(k => k.GarconResponsavel)
                         .Include(l => l.MesaAtendida)
                         .ToListAsync()
+                        .Result
                     );
         }
 
@@ -31,13 +32,13 @@ namespace API.Controllers
         public IActionResult GetById([FromRoute] int id,
                                     [FromServices] AppDbContext context)
         { 
-            var atenModel = context.Atendimentos!
-                                .Include(p => p.ListaProdutos)!
-                                    .ThenInclude(o => o.Categoria)
-                                .Include(k => k.GarconResponsavel)
-                                .Include(l => l.MesaAtendida)
-                                .FirstOrDefaultAsync(e => e.AtendimentoID == id);
-            return Ok(atenModel);
+            return Ok(context.Atendimentos!
+                        .Include(p => p.ListaProdutos)!
+                            .ThenInclude(o => o.Categoria)
+                        .Include(k => k.GarconResponsavel)
+                        .Include(l => l.MesaAtendida)
+                        .FirstOrDefaultAsync(e => e.AtendimentoID == id)
+                        .Result);
         }
 
         [HttpPost("/[controller]")]
@@ -75,12 +76,12 @@ namespace API.Controllers
                             [FromBody] AtendimentoModel ateModel,
                             [FromServices] AppDbContext context)
         {
-            var AteModel = context.Atendimentos!.FirstOrDefault(e => e.AtendimentoID == id);
+            var AteModel = context.Atendimentos!.FirstOrDefaultAsync(e => e.AtendimentoID == id).Result;
+
             if(AteModel == null) {
                 return NotFound();
             }
             
-            AteModel.AtendimentoID = ateModel.AtendimentoID;
             AteModel.MesaAtendida = ateModel.MesaAtendida;
             AteModel.GarconResponsavel = ateModel.GarconResponsavel;
             AteModel.ListaProdutos = ateModel.ListaProdutos;
@@ -97,7 +98,7 @@ namespace API.Controllers
         public IActionResult Delete([FromRoute] int id,
                             [FromServices] AppDbContext context)
         {
-            var AteModel = context.Atendimentos!.FirstOrDefault(e => e.AtendimentoID == id);
+            var AteModel = context.Atendimentos!.FirstOrDefaultAsync(e => e.AtendimentoID == id).Result!;
 
             if(AteModel == null) {
                 return NotFound();

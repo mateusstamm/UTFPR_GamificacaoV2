@@ -31,8 +31,7 @@ namespace GerenRest.RazorPages.Pages.Categoria
                 }
                 
                 var content = await response.Content.ReadAsStringAsync();
-                var categoriaModelRoot = JsonConvert.DeserializeObject<CategoriaModelRoot>(content)!;
-                CatModel = categoriaModelRoot.Categoria!;
+                CatModel = JsonConvert.DeserializeObject<CategoriaModel>(content)!;
             }
 
             if(CatModel == null) {

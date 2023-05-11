@@ -24,7 +24,6 @@ namespace GerenRest.RazorPages.Pages.Categoria
                 
                 var content = await response.Content.ReadAsStringAsync();
                 CategoriaList = JsonConvert.DeserializeObject<List<CategoriaModel>>(content)!;
-
             }
             return Page();
         }
