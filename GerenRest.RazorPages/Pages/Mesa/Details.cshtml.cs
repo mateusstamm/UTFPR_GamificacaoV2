@@ -1,34 +1,43 @@
-using GerenRest.RazorPages.Data;
 using GerenRest.RazorPages.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace GerenRest.RazorPages.Pages.Mesa
 {
     public class Details : PageModel
     {
-        private readonly AppDbContext _context;
         public MesaModel MesaModel { get; set; } = new();
-        public Details(AppDbContext context)
+        public Details()
         {
-            _context = context;
+            
         }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if(id == null || _context.Mesas == null) {
+           if(id == null) {
                 return NotFound();
             }
 
-            var mesaModel = await _context.Mesas.FirstOrDefaultAsync(e => e.MesaID == id);
+            using (var httpClient = new HttpClient())
+            {
+                string url = $"http://localhost:5239/Mesa/{id}";
 
-            if(mesaModel == null) {
-                return NotFound();
+                var response = await httpClient.GetAsync(url);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return NotFound();
+                }
+                
+                var content = await response.Content.ReadAsStringAsync();
+                MesaModel = JsonConvert.DeserializeObject<MesaModel>(content)!;
             }
 
-            MesaModel = mesaModel;
-
+            if(MesaModel == null) {
+                return NotFound();
+            }
+            
             return Page();
         }
     }

@@ -1,32 +1,65 @@
-using GerenRest.RazorPages.Data;
+using System.Net.Http.Headers;
+using System.Text;
 using GerenRest.RazorPages.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace GerenRest.RazorPages.Pages.Mesa
 {
     public class Edit : PageModel
     {
-        private readonly AppDbContext _context;
         [BindProperty]
         public MesaModel? MesaModel { get; set; }
-        public Edit(AppDbContext context)
+        public Edit()
         {
-            _context = context;
+            
         }
 
         public async Task<IActionResult> OnGetAsync(int? id) {
-            MesaModel = await _context.Mesas!.FindAsync(id);
+            
+            if(id == null) {
+                return NotFound();
+            }
 
-            MesaModel!.HoraAbertura = null;
+            using (var httpClient = new HttpClient())
+            {
+                string url = $"http://localhost:5239/Mesa/{id}";
+                var response = await httpClient.GetAsync(url);
+                if (!response.IsSuccessStatusCode)
+                {
+                    return NotFound();
+                }
+                var content = await response.Content.ReadAsStringAsync();
+                MesaModel = JsonConvert.DeserializeObject<MesaModel>(content)!;
+            }
+
+            if(MesaModel == null) {
+                return NotFound();
+            }
+
             MesaModel!.Ocupada = "Ocupada";
+            MesaModel!.HoraAbertura = null;
+            string jsonData = JsonConvert.SerializeObject(MesaModel);
 
-            try {
-                await _context.SaveChangesAsync();
-                return RedirectToPage("/Mesa/Index");
-            } catch(DbUpdateException) {
-                return Page();
+            using (HttpClient client = new HttpClient())
+            {
+                string apiUrl = $"http://localhost:5239/Mesa/{id}";
+
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PutAsync(apiUrl, content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToPage("./Index");
+                }               
+                else
+                {
+                    return StatusCode((int)response.StatusCode);
+                }
             }
         }
     }

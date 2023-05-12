@@ -24,7 +24,6 @@ namespace GerenRest.RazorPages.Pages.Atendimento
             using (var httpClient = new HttpClient())
             {
                 string url = $"http://localhost:5239/Atendimento/{id}";
-
                 var response = await httpClient.GetAsync(url);
 
                 if (!response.IsSuccessStatusCode)
@@ -33,7 +32,7 @@ namespace GerenRest.RazorPages.Pages.Atendimento
                 }
                 
                 var content = await response.Content.ReadAsStringAsync();
-                var AtenModel = JsonConvert.DeserializeObject<AtendimentoModel>(content)!;
+                AtenModel = JsonConvert.DeserializeObject<AtendimentoModel>(content)!;
             }
 
             if(AtenModel == null) {
@@ -49,7 +48,6 @@ namespace GerenRest.RazorPages.Pages.Atendimento
             using (var httpClient = new HttpClient())
             {
                 string url = $"http://localhost:5239/Atendimento/{id}";
-
                 var response = await httpClient.DeleteAsync(url);
 
                 if (!response.IsSuccessStatusCode)

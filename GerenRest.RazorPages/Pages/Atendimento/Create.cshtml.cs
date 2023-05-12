@@ -3,7 +3,6 @@ using System.Text;
 using GerenRest.RazorPages.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
 namespace GerenRest.RazorPages.Pages.Atendimento
@@ -14,7 +13,7 @@ namespace GerenRest.RazorPages.Pages.Atendimento
             public int? AtendimentoID { get; set; } = null;
             public int? MesaID { get; set; }
             public int? GarconID { get; set; }
-            public List<ProdutoModel> ListaProdutos { get; set; } = new();
+            public List<ProdutoModel>? ListaProdutos { get; set; } = new();
             public DateTime HorarioAtendimento { get; set; }
             public float PrecoTotal { get; set; }
         }
@@ -44,6 +43,24 @@ namespace GerenRest.RazorPages.Pages.Atendimento
             dadosJson.GarconID = GarconId;
             dadosJson.MesaID = MesaId;
 
+            using (var httpClient = new HttpClient())
+            {
+                string url = $"http://localhost:5239/Mesa/{MesaId}";
+                var response = await httpClient.GetAsync(url);
+                
+                var content = await response.Content.ReadAsStringAsync();
+                var mesaAtendida = JsonConvert.DeserializeObject<MesaModel>(content)!;
+
+                mesaAtendida.Ocupada = "Livre";
+                mesaAtendida.HoraAbertura = DateTime.Now;
+
+                string jsonData = JsonConvert.SerializeObject(mesaAtendida);
+                httpClient.DefaultRequestHeaders.Accept.Clear();
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                var arqJson = new StringContent(jsonData, Encoding.UTF8, "application/json");
+                await httpClient.PutAsync(url, arqJson);
+            }
+
             int[] prodConsumidos = Request.Form["ProdSelec"].Select(int.Parse!).ToArray();
             
             if(prodConsumidos.Length == 0) {
@@ -65,7 +82,7 @@ namespace GerenRest.RazorPages.Pages.Atendimento
                     var prod = JsonConvert.DeserializeObject<ProdutoModel>(content)!;
                     
                     AtenModel.PrecoTotal += prod.Preco;
-                    dadosJson.ListaProdutos.Add(new ProdutoModel() {
+                    dadosJson.ListaProdutos!.Add(new ProdutoModel() {
                         ProdutoID = idProd
                     });
                 }

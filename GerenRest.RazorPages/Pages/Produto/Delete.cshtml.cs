@@ -3,12 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
 
-namespace GerenRest.RazorPages.Pages.Garcon
+namespace GerenRest.RazorPages.Pages.Produto
 {
     public class Delete : PageModel
     {
         [BindProperty]
-        public GarconModel GarconModel { get; set; } = new();
+        public ProdutoModel ProdModel { get; set; } = new();
         public Delete()
         {
             
@@ -18,13 +18,13 @@ namespace GerenRest.RazorPages.Pages.Garcon
         {
             using (var httpClient = new HttpClient())
             {
-                string url = $"http://localhost:5239/Garcon/{id}";
+                string url = $"http://localhost:5239/Produto/{id}";
 
                 var requestMes = new HttpRequestMessage(HttpMethod.Get, url);
                 var response = await httpClient.SendAsync(requestMes);
                 
                 var content = await response.Content.ReadAsStringAsync();
-                GarconModel = JsonConvert.DeserializeObject<GarconModel>(content)!;
+                ProdModel = JsonConvert.DeserializeObject<ProdutoModel>(content)!;
             }
 
             return Page();
@@ -34,7 +34,7 @@ namespace GerenRest.RazorPages.Pages.Garcon
         {
             using (var httpClient = new HttpClient())
             {
-                string url = $"http://localhost:5239/Garcon/{id}";
+                string url = $"http://localhost:5239/Produto/{id}";
 
                 var response = await httpClient.DeleteAsync(url);
 

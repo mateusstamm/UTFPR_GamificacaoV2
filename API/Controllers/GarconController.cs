@@ -36,7 +36,7 @@ namespace API.Controllers
             return Created($"/{garModel.GarconID}", garModel);
         }
 
-        [HttpPut("/[controller]")]
+        [HttpPut("/[controller]/{id:int}")]
 
         public IActionResult Put([FromRoute] int id,
                             [FromBody] GarconModel garModel,
@@ -58,7 +58,7 @@ namespace API.Controllers
             return Ok(GarModel);
         }
 
-        [HttpDelete("/[controller]")]
+        [HttpDelete("/[controller]/{id:int}")]
 
         public IActionResult Delete([FromRoute] int id,
                             [FromServices] AppDbContext context)

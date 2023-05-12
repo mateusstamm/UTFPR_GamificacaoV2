@@ -1309,31 +1309,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\danib\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\Daniel\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "d:\\GitHub\\UTFPR_GamificacaoV2\\GerenRest.RazorPages\\GerenRest.RazorPages.csproj",
+      "projectUniqueName": "c:\\GitHub\\UTFPR_GamificacaoV2\\GerenRest.RazorPages\\GerenRest.RazorPages.csproj",
       "projectName": "GerenRest.RazorPages",
-      "projectPath": "d:\\GitHub\\UTFPR_GamificacaoV2\\GerenRest.RazorPages\\GerenRest.RazorPages.csproj",
-      "packagesPath": "C:\\Users\\danib\\.nuget\\packages\\",
-      "outputPath": "d:\\GitHub\\UTFPR_GamificacaoV2\\GerenRest.RazorPages\\obj\\",
+      "projectPath": "c:\\GitHub\\UTFPR_GamificacaoV2\\GerenRest.RazorPages\\GerenRest.RazorPages.csproj",
+      "packagesPath": "C:\\Users\\Daniel\\.nuget\\packages\\",
+      "outputPath": "c:\\GitHub\\UTFPR_GamificacaoV2\\GerenRest.RazorPages\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\danib\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\Daniel\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

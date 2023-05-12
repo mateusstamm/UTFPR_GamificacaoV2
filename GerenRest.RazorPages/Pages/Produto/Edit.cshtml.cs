@@ -5,12 +5,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
 
-namespace GerenRest.RazorPages.Pages.Garcon
+namespace GerenRest.RazorPages.Pages.Produto
 {
     public class Edit : PageModel
     {
         [BindProperty]
-        public GarconModel GarconModel { get; set; } = new();
+        public ProdutoModel ProdModel { get; set; } = new();
+        public List<CategoriaModel>? CatModel { get; set; } = new();
         public Edit()
         {
             
@@ -20,13 +21,24 @@ namespace GerenRest.RazorPages.Pages.Garcon
         {
             using (var httpClient = new HttpClient())
             {
-                string url = $"http://localhost:5239/Garcon/{id}";
+                string url = $"http://localhost:5239/Produto/{id}";
 
                 var requestMes = new HttpRequestMessage(HttpMethod.Get, url);
                 var response = await httpClient.SendAsync(requestMes);
                 
                 var content = await response.Content.ReadAsStringAsync();
-                GarconModel = JsonConvert.DeserializeObject<GarconModel>(content)!;
+                ProdModel = JsonConvert.DeserializeObject<ProdutoModel>(content)!;
+            }
+
+            using (var httpClient = new HttpClient())
+            {
+                string url = $"http://localhost:5239/Categoria";
+
+                var requestMes = new HttpRequestMessage(HttpMethod.Get, url);
+                var response = await httpClient.SendAsync(requestMes);
+                
+                var content = await response.Content.ReadAsStringAsync();
+                CatModel = JsonConvert.DeserializeObject<List<CategoriaModel>>(content)!;
             }
 
             return Page();
@@ -39,11 +51,11 @@ namespace GerenRest.RazorPages.Pages.Garcon
                 return Page();
             }
 
-            string jsonData = JsonConvert.SerializeObject(GarconModel);
+            string jsonData = JsonConvert.SerializeObject(ProdModel);
 
             using (HttpClient client = new HttpClient())
             {
-                string apiUrl = $"http://localhost:5239/Garcon/{id}";
+                string apiUrl = $"http://localhost:5239/Produto/{id}";
 
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -53,7 +65,7 @@ namespace GerenRest.RazorPages.Pages.Garcon
 
                 if (response.IsSuccessStatusCode)
                 {
-                    return RedirectToPage("/Garcon/Index");
+                    return RedirectToPage("./Index");
                 }               
                 else
                 {

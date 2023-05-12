@@ -42,7 +42,8 @@ namespace API.Controllers
                             [FromBody] MesaModel mesaModel,
                             [FromServices] AppDbContext context)
         {
-            var MesaModel = context.Mesas!.FirstOrDefault(e => e.MesaID == id);
+            var MesaModel = context.Mesas!.FirstOrDefaultAsync(e => e.MesaID == id).Result;
+            
             if(MesaModel == null) {
                 return NotFound();
             }

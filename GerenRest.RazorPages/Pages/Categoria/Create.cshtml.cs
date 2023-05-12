@@ -24,7 +24,6 @@ namespace GerenRest.RazorPages.Pages.Categoria
                 return Page();
             }
 
-            // Serializa o objeto CatModel para JSON
             string jsonData = JsonConvert.SerializeObject(CatModel);
 
             using (HttpClient client = new HttpClient())

@@ -18,12 +18,12 @@ namespace API.Controllers
             [FromServices] AppDbContext context)
         {
             return Ok(context.Atendimentos!
-                        .Include(p => p.ListaProdutos)!
-                            .ThenInclude(o => o.Categoria)
-                        .Include(k => k.GarconResponsavel)
-                        .Include(l => l.MesaAtendida)
-                        .ToListAsync()
-                        .Result
+                                .Include(p => p.ListaProdutos)!
+                                    .ThenInclude(o => o.Categoria)
+                                .Include(k => k.GarconResponsavel)
+                                .Include(l => l.MesaAtendida)
+                                .ToListAsync()
+                                .Result
                     );
         }
 
@@ -33,12 +33,12 @@ namespace API.Controllers
                                     [FromServices] AppDbContext context)
         { 
             return Ok(context.Atendimentos!
-                        .Include(p => p.ListaProdutos)!
-                            .ThenInclude(o => o.Categoria)
-                        .Include(k => k.GarconResponsavel)
-                        .Include(l => l.MesaAtendida)
-                        .FirstOrDefaultAsync(e => e.AtendimentoID == id)
-                        .Result);
+                                .Include(p => p.ListaProdutos)!
+                                    .ThenInclude(o => o.Categoria)
+                                .Include(k => k.GarconResponsavel)
+                                .Include(l => l.MesaAtendida)
+                                .FirstOrDefaultAsync(e => e.AtendimentoID == id)
+                                .Result);
         }
 
         [HttpPost("/[controller]")]
@@ -57,13 +57,14 @@ namespace API.Controllers
             context.Atendimentos!.Add(ateModel);
             context.SaveChanges();
             
-            var prodAte = new AtendimentoProdutoModel();
+            AtendimentoProdutoModel prodAte = new AtendimentoProdutoModel();
 
             foreach(int idProd in prodsId)
             {
-                prodAte.AtendimentoID = ateModel.AtendimentoID;
-                prodAte.ProdutoID = idProd;
-                context.AtendimentoProduto!.Add(prodAte);
+                context.AtendimentoProduto!.Add(new AtendimentoProdutoModel() {
+                    AtendimentoID = ateModel.AtendimentoID,
+                    ProdutoID = idProd
+                });
             }
 
             context.SaveChanges();

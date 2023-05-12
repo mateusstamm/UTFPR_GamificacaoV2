@@ -1,7 +1,7 @@
 @page "{id:int}"
 @model GerenRest.RazorPages.Pages.Garcon.Details
 
-<h1>Detalhes do Evento</h1>
+<h1>Detalhes do Garçon</h1>
 
 <div>
     <p><strong>Nome:</strong>@Model.GarconModel.Nome @Model.GarconModel.Sobrenome</p>
@@ -9,4 +9,4 @@
     <p><strong>Telefone:</strong>@Model.GarconModel.Telefone</p>
 </div>
 
-<a class="btn btn-primary" asp-page="Garcon/Index">Voltar para a lista</a>
+<a class="btn btn-primary" asp-page="./Index">Voltar para a lista</a>

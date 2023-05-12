@@ -18,7 +18,8 @@ namespace API.Controllers
         {
             return Ok(context.Produtos!
                             .Include(e => e.Categoria)
-                            .ToList());
+                            .ToListAsync()
+                            .Result);
         }
 
         [HttpGet("/[controller]/{id:int}")]
@@ -26,11 +27,7 @@ namespace API.Controllers
         public IActionResult GetById([FromRoute] int id,
                                     [FromServices] AppDbContext context)
         {
-            var produtoModel = context.Produtos!.Include(e => e.Categoria).FirstOrDefault(e => e.ProdutoID == id);
-            if(produtoModel == null) {
-                return NotFound();
-            }
-            return Ok(produtoModel);
+            return Ok(context.Produtos!.Include(e => e.Categoria).FirstOrDefaultAsync(e => e.ProdutoID == id).Result);
         }
 
         [HttpPost("/[controller]")]
@@ -50,12 +47,13 @@ namespace API.Controllers
                             [FromBody] ProdutoModel prodModel,
                             [FromServices] AppDbContext context)
         {
-            var ProdModel = context.Produtos!.Include(e => e.Categoria).FirstOrDefaultAsync(e => e.ProdutoID == id).Result;
+            var ProdModel = context.Produtos!.FirstOrDefaultAsync(e => e.ProdutoID == id).Result;
             
             if(ProdModel == null) {
                 return NotFound();
             }
             
+            ProdModel.CategoriaID = prodModel.CategoriaID;
             ProdModel.Categoria = prodModel.Categoria;
             ProdModel.Descricao = prodModel.Descricao;
             ProdModel.Nome = prodModel.Nome;
@@ -66,7 +64,7 @@ namespace API.Controllers
             return Ok(ProdModel);
         }
 
-        [HttpDelete("/[controller]")]
+        [HttpDelete("/[controller]/{id:int}")]
 
         public IActionResult Delete([FromRoute] int id,
                             [FromServices] AppDbContext context)
