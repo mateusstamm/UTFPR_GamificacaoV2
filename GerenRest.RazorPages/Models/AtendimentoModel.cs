@@ -11,6 +11,7 @@ namespace GerenRest.RazorPages.Models {
         [ForeignKey("GarconID")]
         public GarconModel? GarconResponsavel { get; set; }
         public List<ProdutoModel>? ListaProdutos { get; set; }
+        public List<int>? ListaQuantidade { get; set; }
         public DateTime? HorarioAtendimento { get; set; }
         public float? PrecoTotal { get; set; }
     }

@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230509181412_Database")]
-    partial class Database
+    [Migration("20230514141255_CreateDatabase")]
+    partial class CreateDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -53,6 +53,9 @@ namespace API.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("ProdutoID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("Quantidade")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("AtendimentoID", "ProdutoID");

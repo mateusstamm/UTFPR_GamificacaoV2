@@ -14,6 +14,7 @@ namespace GerenRest.RazorPages.Pages.Atendimento
             public int? MesaID { get; set; }
             public int? GarconID { get; set; }
             public List<ProdutoModel>? ListaProdutos { get; set; } = new();
+            public List<int>? ListaQuantidade { get; set; } = new();
             public DateTime HorarioAtendimento { get; set; }
             public float PrecoTotal { get; set; }
         }
@@ -62,6 +63,7 @@ namespace GerenRest.RazorPages.Pages.Atendimento
             }
 
             int[] prodConsumidos = Request.Form["ProdSelec"].Select(int.Parse!).ToArray();
+            int[] prodQuantidade = Request.Form["QuantSelect"].Select(int.Parse!).ToArray();
             
             if(prodConsumidos.Length == 0) {
                 TempData["ErroSelecaoProd"] = "Nenhum produto foi selecionado!";
@@ -69,6 +71,13 @@ namespace GerenRest.RazorPages.Pages.Atendimento
             }
 
             AtenModel.PrecoTotal = 0;
+
+            foreach(var quantProd in prodQuantidade)
+            {
+                dadosJson.ListaQuantidade!.Add(quantProd);
+            }
+
+            int cont = 0;
 
             using (var httpClient = new HttpClient())
             {
@@ -81,7 +90,7 @@ namespace GerenRest.RazorPages.Pages.Atendimento
                     var content = await response.Content.ReadAsStringAsync();
                     var prod = JsonConvert.DeserializeObject<ProdutoModel>(content)!;
                     
-                    AtenModel.PrecoTotal += prod.Preco;
+                    AtenModel.PrecoTotal += prod.Preco * dadosJson.ListaQuantidade![cont++];
                     dadosJson.ListaProdutos!.Add(new ProdutoModel() {
                         ProdutoID = idProd
                     });

@@ -9,22 +9,30 @@ namespace API.Controllers
     [ApiController]
     public class AtendimentoController : ControllerBase
     {
-        AtendimentoModel AtendimentoModel = new AtendimentoModel();
-
         [HttpGet]
         [Route("/[controller]")]
 
-        public IActionResult Get(
+        public async Task<IActionResult> Get(
             [FromServices] AppDbContext context)
         {
-            return Ok(context.Atendimentos!
+            var atModel = context.Atendimentos!
                                 .Include(p => p.ListaProdutos)!
                                     .ThenInclude(o => o.Categoria)
                                 .Include(k => k.GarconResponsavel)
                                 .Include(l => l.MesaAtendida)
                                 .ToListAsync()
-                                .Result
-                    );
+                                .Result;
+
+            foreach(var atendimento in atModel)
+            {
+                var quants = await context.AtendimentoProduto!
+                                    .Where(k => k.AtendimentoID == atendimento.AtendimentoID)
+                                    .Select(o => o.Quantidade!.Value)
+                                    .ToListAsync();
+                atendimento.ListaQuantidade = quants;
+            }
+
+            return Ok(atModel);
         }
 
         [HttpGet("/[controller]/{id:int}")]
@@ -58,12 +66,14 @@ namespace API.Controllers
             context.SaveChanges();
             
             AtendimentoProdutoModel prodAte = new AtendimentoProdutoModel();
+            int cont = 0;
 
             foreach(int idProd in prodsId)
             {
                 context.AtendimentoProduto!.Add(new AtendimentoProdutoModel() {
                     AtendimentoID = ateModel.AtendimentoID,
-                    ProdutoID = idProd
+                    ProdutoID = idProd,
+                    Quantidade = ateModel.ListaQuantidade![cont++]
                 });
             }
 

@@ -39,9 +39,9 @@
                     <td>@Html.DisplayFor(model => atenModel.GarconResponsavel!.Nome)</td>
                     <td>
                         <select>
-                            @foreach (var prodModel in atenModel.ListaProdutos!)
+                            @for(int i=0;i<atenModel.ListaProdutos!.Count;i++)
                             {
-                                <option>@prodModel.Nome</option>
+                                <option>@atenModel.ListaProdutos![i].Nome x @atenModel.ListaQuantidade![i]</option>
                             }
                         </select>
                     </td>

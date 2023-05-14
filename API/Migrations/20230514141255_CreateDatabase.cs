@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace API.Migrations
 {
     /// <inheritdoc />
-    public partial class Database : Migration
+    public partial class CreateDatabase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -108,7 +108,8 @@ namespace API.Migrations
                 columns: table => new
                 {
                     ProdutoID = table.Column<int>(type: "INTEGER", nullable: false),
-                    AtendimentoID = table.Column<int>(type: "INTEGER", nullable: false)
+                    AtendimentoID = table.Column<int>(type: "INTEGER", nullable: false),
+                    Quantidade = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {

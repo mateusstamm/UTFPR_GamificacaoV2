@@ -6,6 +6,7 @@ namespace API.Models
     {
         public int? ProdutoID { get; set; }
         public int? AtendimentoID { get; set; }
+        public int? Quantidade { get; set; }
         [ForeignKey("AtendimentoID")]
         public AtendimentoModel? Atendimento { get; set; }
         [ForeignKey("ProdutoID")]

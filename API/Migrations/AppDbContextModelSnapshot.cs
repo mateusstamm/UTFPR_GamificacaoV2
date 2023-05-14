@@ -52,6 +52,9 @@ namespace API.Migrations
                     b.Property<int?>("ProdutoID")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("Quantidade")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("AtendimentoID", "ProdutoID");
 
                     b.HasIndex("ProdutoID");

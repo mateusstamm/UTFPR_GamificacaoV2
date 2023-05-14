@@ -49,6 +49,8 @@ namespace API.Data
                 .HasOne(g => g.GarconResponsavel)
                 .WithMany()
                 .HasForeignKey("GarconID");
+            
+            modelBuilder.Entity<AtendimentoModel>().Ignore(u => u.ListaQuantidade);
         }
     }
 }

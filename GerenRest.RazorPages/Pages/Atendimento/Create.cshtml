@@ -7,6 +7,21 @@
     <div class="alert alert-warning">@TempData["ErroSelecaoProd"]</div>
 }
 
+<script>
+    function toggleInputVisibility(inputId, checkboxId) {
+        var input = document.getElementById(inputId);
+        var checkbox = document.getElementById(checkboxId);
+
+        if (checkbox.checked) {
+            input.style.visibility = "visible";
+            input.disabled = false;
+        } else {
+            input.style.visibility = "hidden";
+            input.disabled = true;
+        }
+    }
+</script>
+
 <div class="row">
     <div class="col-md-4">
         <form method="post">
@@ -39,8 +54,9 @@
                     @foreach (var prodModel in Model.ProdModel!)
                     {
                         <li>
-                            <input type="checkbox" name="ProdSelec" value="@prodModel.ProdutoID"/>
+                            <input type="checkbox" name="ProdSelec" id="prod_@prodModel.ProdutoID" onchange="toggleInputVisibility('inp_@prodModel.ProdutoID', 'prod_@prodModel.ProdutoID')" value="@prodModel.ProdutoID"/>
                             <label>@prodModel.Nome</label>
+                            <input type="number" name="QuantSelect" id="inp_@prodModel.ProdutoID" value="1" min="1" style="visibility: hidden;" disabled>
                         </li>
                     }
                 </ul>
