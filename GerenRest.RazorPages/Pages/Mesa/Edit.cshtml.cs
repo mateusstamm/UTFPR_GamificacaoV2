@@ -38,7 +38,7 @@ namespace GerenRest.RazorPages.Pages.Mesa
                 return NotFound();
             }
 
-            MesaModel!.Ocupada = "Ocupada";
+            MesaModel!.Ocupada = "Livre";
             MesaModel!.HoraAbertura = null;
             string jsonData = JsonConvert.SerializeObject(MesaModel);
 

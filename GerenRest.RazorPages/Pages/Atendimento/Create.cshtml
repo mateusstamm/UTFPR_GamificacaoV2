@@ -41,7 +41,7 @@
                 <select asp-for="MesaId">
                     @foreach (var mesaModel in Model.MesaModel!)
                     {
-                        @if(@mesaModel.Ocupada == "Ocupada") {
+                        @if(@mesaModel.Ocupada != null) {
                             <option value="@mesaModel.MesaID">@mesaModel.Numero</option>
                         }
                     }

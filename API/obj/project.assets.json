@@ -1714,23 +1714,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\danib\\.nuget\\packages\\": {},
+    "C:\\Users\\bruno\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "d:\\GitHub\\UTFPR_GamificacaoV2\\API\\API.csproj",
+      "projectUniqueName": "C:\\Users\\bruno\\Documents\\GitHub\\UTFPR_GamificacaoV2\\API\\API.csproj",
       "projectName": "API",
-      "projectPath": "d:\\GitHub\\UTFPR_GamificacaoV2\\API\\API.csproj",
-      "packagesPath": "C:\\Users\\danib\\.nuget\\packages\\",
-      "outputPath": "d:\\GitHub\\UTFPR_GamificacaoV2\\API\\obj\\",
+      "projectPath": "C:\\Users\\bruno\\Documents\\GitHub\\UTFPR_GamificacaoV2\\API\\API.csproj",
+      "packagesPath": "C:\\Users\\bruno\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\bruno\\Documents\\GitHub\\UTFPR_GamificacaoV2\\API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\danib\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\bruno\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -1739,6 +1739,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

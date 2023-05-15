@@ -52,7 +52,7 @@ namespace GerenRest.RazorPages.Pages.Atendimento
                 var content = await response.Content.ReadAsStringAsync();
                 var mesaAtendida = JsonConvert.DeserializeObject<MesaModel>(content)!;
 
-                mesaAtendida.Ocupada = "Livre";
+                mesaAtendida.Ocupada = "Ocupada";
                 mesaAtendida.HoraAbertura = DateTime.Now;
 
                 string jsonData = JsonConvert.SerializeObject(mesaAtendida);
@@ -159,7 +159,7 @@ namespace GerenRest.RazorPages.Pages.Atendimento
 
             int countMesasOcupadas = 0;
             foreach(var mesaModel in MesaModel) {
-                if(mesaModel.Ocupada == "Ocupada") {
+                if(mesaModel.Ocupada == "Livre") {
                     countMesasOcupadas++;
                 }
             }

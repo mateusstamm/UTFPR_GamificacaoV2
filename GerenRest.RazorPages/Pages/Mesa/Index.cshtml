@@ -26,9 +26,9 @@
                             <div class="col-md-6">
                                 <div>@Html.DisplayFor(model => mesaModel.Ocupada)</div>
                             </div>
-                            @if(mesaModel.Ocupada == "Livre") {
+                            @if(mesaModel.Ocupada == "Ocupada") {
                                 <div class="col-md-6">
-                                    <div><a class="btn btn-danger" asp-page="./Edit" asp-route-id="@mesaModel.MesaID">Ocupada</a></div>
+                                    <div><a class="btn btn-danger" asp-page="./Edit" asp-route-id="@mesaModel.MesaID">Fechar</a></div>
                                 </div>
                             }
                         </div>
