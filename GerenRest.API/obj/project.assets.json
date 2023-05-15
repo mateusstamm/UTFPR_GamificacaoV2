@@ -1720,11 +1720,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\bruno\\Documents\\GitHub\\UTFPR_GamificacaoV2\\API\\API.csproj",
+      "projectUniqueName": "C:\\Users\\bruno\\Documents\\GitHub\\UTFPR_GamificacaoV2\\GerenRest.API\\API.csproj",
       "projectName": "API",
-      "projectPath": "C:\\Users\\bruno\\Documents\\GitHub\\UTFPR_GamificacaoV2\\API\\API.csproj",
+      "projectPath": "C:\\Users\\bruno\\Documents\\GitHub\\UTFPR_GamificacaoV2\\GerenRest.API\\API.csproj",
       "packagesPath": "C:\\Users\\bruno\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\bruno\\Documents\\GitHub\\UTFPR_GamificacaoV2\\API\\obj\\",
+      "outputPath": "C:\\Users\\bruno\\Documents\\GitHub\\UTFPR_GamificacaoV2\\GerenRest.API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

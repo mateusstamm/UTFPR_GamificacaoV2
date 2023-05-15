@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "9Dn4IRp/amqTT8kmhtAP0XxcvQzUeigA8V/zwYROuUpL6vGIqVpNQcfah5Oi0xJqScJm8epKxJHrOrekxylxrQ==",
+  "dgSpecHash": "kZPd/LRAtHndsJVl3/GNgK9GoIKa9TmASwB7eBBEvEFtQ7Kah2ybOXrqGbDuYmncujpUGONUfnpggUjESwBwGQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\bruno\\Documents\\GitHub\\UTFPR_GamificacaoV2\\API\\API.csproj",
+  "projectFilePath": "C:\\Users\\bruno\\Documents\\GitHub\\UTFPR_GamificacaoV2\\GerenRest.API\\API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\bruno\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\bruno\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.4\\microsoft.aspnetcore.openapi.7.0.4.nupkg.sha512",
